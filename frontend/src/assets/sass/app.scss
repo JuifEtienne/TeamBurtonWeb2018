@@ -1,0 +1,8 @@
+@import 'shared';
+
+body {
+    font: $font-title;
+    h1, h2 {
+        color: $themeColor-Dark;
+    }
+}
