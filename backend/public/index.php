@@ -26,3 +26,8 @@ $app = require __DIR__.'/../bootstrap/app.php';
 */
 
 $app->run();
+
+ // TEST JULIAN
+ 
+$results = DB::select("SELECT * FROM pays");
+print_r($results);
