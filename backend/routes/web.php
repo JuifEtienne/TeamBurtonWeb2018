@@ -14,3 +14,24 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+// Exemple requête GET (TP PASCALE)
+$router->get( '/hello/world' , function () {
+	return "Hello World" ;
+});
+
+// Exemple GET avec paramètre et middleware (TP PASCALE) 
+$router->get( '/hello/{name}' , [ 'middleware' => 'hello' , function ($name) {
+	return "Hello {$name}" ;
+}]);
+
+$router->group(['prefix' => 'voyage'], function($app)
+{
+	/*$app->post('voyage','VoyageController@createVoyage');
+
+	$app->put('voyage/{id}','VoyageController@updateVoyage');
+ 	 
+	$app->delete('voyage/{id}','VoyageController@deleteVoyage');*/
+
+	$app->get('/','VoyageController@index');
+});

@@ -60,13 +60,14 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+// Exemples d'utilisation des middleware (TP PASCALE)
+$app->middleware([
+	App\Http\Middleware\OldMiddleware::class
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+	'hello' => App\Http\Middleware\HelloMiddleware::class
+]);
 
 /*
 |--------------------------------------------------------------------------
