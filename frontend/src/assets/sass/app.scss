@@ -1,8 +1,33 @@
 @import 'shared';
 
 body {
-    font: $font-title;
-    h1, h2 {
-        color: $themeColor-Dark;
+    font-family: 'DejaVu';
+    background-color: $themeColor-Light;
+    margin: 0;
+	padding: 0;
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $font-title;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    #menu {
+        width: 20%;
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        background: linear-gradient($salmon, $purple);
+        color: #fff;
+        text-align: center;
+    }
+    
+    #dashboard {
+        width: 80%;
+        position: absolute;
+        right: 0;
+        height: auto;
     }
 }
