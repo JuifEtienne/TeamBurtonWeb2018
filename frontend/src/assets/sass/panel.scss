@@ -1,0 +1,22 @@
+.panel {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, .05);
+    
+    .control {
+        float: right;
+        height: 22px;
+        width: 22px;
+        
+        .symbols {
+            margin-left: auto;
+            margin-right: auto;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #5e5162;
+            box-shadow: 0px 8px 0px #5e5162, 0px 16px 0px #5e5162;
+        }
+    }
+}
