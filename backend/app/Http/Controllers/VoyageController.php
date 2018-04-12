@@ -8,7 +8,22 @@ use Illuminate\Http\Request;
 
 class VoyageController extends Controller
 {
-    public function createVoyage(Request $request){
+    public function getAll() {
+ 
+        $voyages = Voyage::all();
+ 
+        return response()->json($voyages);
+ 
+    }
+
+    public function getVoyage($id) {
+
+        $voyage = Voyage::find($id); // find permet de récupérer un objet par sa clé primaire
+
+        return response()->json($voyage);
+    }
+
+    public function createVoyage(Request $request) {
  
         $voyage = Voyage::create($request->all());
  
@@ -16,9 +31,9 @@ class VoyageController extends Controller
  
     }
  
-    public function updateVoyage(Request $request, $id){
+    public function updateVoyage(Request $request, $id) {
  
-        $voyage  = Voyage::find($id); // find permet de récupérer un objet par sa clé primaire
+        $voyage = Voyage::find($id); 
         $voyage->nom = $request->input('nom');
         $voyage->dateDebut = $request->input('dateDebut');
         $voyage->dateFin = $request->input('dateFin');
@@ -27,18 +42,13 @@ class VoyageController extends Controller
         return response()->json($voyage);
     }  
  
-    public function deleteVoyage($id){
-        $voyage  = Voyage::find($id);
+    public function deleteVoyage($id) {
+
+        $voyage = Voyage::find($id);
         $voyage->delete();
  
         return response()->json('Removed successfully.');
     }
  
-    public function index(){
- 
-        $voyages  = Voyage::all(); // récupère tout dans un tableau
- 
-        return response()->json($voyages);
- 
-    }
+   
 }
