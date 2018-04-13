@@ -25,16 +25,30 @@ $router->get( '/hello/{name}' , [ 'middleware' => 'hello' , function ($name) {
 	return "Hello {$name}" ;
 }]);
 
-$router->group(['prefix' => 'voyages'], function($app)
+$router->group(['prefix' => 'voyage'], function($app)
 {
-	$app->get('/','VoyageController@getAll');
+	$app->get('/all','VoyageController@getAll');
 	
 	$app->get('/{id}','VoyageController@getVoyage');
+
+	$app->get('/{id}/destinations', 'DestinationController@getAllFromVoyage');
 
 	$app->post('/add','VoyageController@createVoyage');
 
 	$app->put('update/{id}','VoyageController@updateVoyage');
  	 
 	$app->delete('delete/{id}','VoyageController@deleteVoyage');
+
+});
+
+$router->group(['prefix' => 'destination'], function($app)
+{	
+	$app->get('/{id}','DestinationController@getDestination');
+
+	/*$app->post('/add','VoyageController@createVoyage');
+
+	$app->put('update/{id}','VoyageController@updateVoyage');
+ 	 
+	$app->delete('delete/{id}','VoyageController@deleteVoyage');*/
 
 });
