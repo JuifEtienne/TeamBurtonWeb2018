@@ -23,7 +23,7 @@ class DestinationController extends Controller
         return response()->json($destination);
     }
 
-    /*public function createDestination(Request $request) {
+    public function createDestination(Request $request) {
  
         $destination = Destination::create($request->all());
  
@@ -33,22 +33,23 @@ class DestinationController extends Controller
  
     public function updateDestination(Request $request, $id) {
  
-        $voyage = Voyage::find($id); 
-        $voyage->nom = $request->input('nom');
-        $voyage->dateDebut = $request->input('dateDebut');
-        $voyage->dateFin = $request->input('dateFin');
-        $voyage->save();
+        $destination = Destination::find($id); 
+        $destination->dateArrivee = $request->input('dateArrivee');
+        $destination->dateDepart = $request->input('dateDepart');
+        $destination->idVoyage = $request->input('idVoyage');
+        $destination->idVille = $request->input('idVille');
+        $destination->save();
  
-        return response()->json($voyage);
+        return response()->json($destination);
     }  
  
-    public function deleteVoyage($id) {
+    public function deleteDestination($id) {
 
-        $voyage = Voyage::find($id);
-        $voyage->delete();
+        $destination = Destination::find($id);
+        $destination->delete();
  
         return response()->json('Removed successfully.');
-    }*/
+    }
  
    
 }

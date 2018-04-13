@@ -10,7 +10,7 @@ class Destination extends Model {
 
 	public $timestamps = false; // Empêche le comportement par défaut de Lumen qui ajoute des champs "created_at" et "updated_at" lors de l'ajout ou de l'update d'un élément dans la table
 
-    protected $fillable = ['idDestination', 'ville', 'dateArrivee', 'dateDepart', 'idPays', 'idFuseau'];
+    protected $fillable = ['id', 'dateArrivee', 'dateDepart', 'idVoyage', 'idVille'];
 
 }
 

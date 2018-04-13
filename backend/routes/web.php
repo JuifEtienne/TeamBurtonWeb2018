@@ -45,11 +45,11 @@ $router->group(['prefix' => 'destination'], function($app)
 {	
 	$app->get('/{id}','DestinationController@getDestination');
 
-	/*$app->post('/add','VoyageController@createVoyage');
+	$app->post('/add','DestinationController@createDestination');
 
-	$app->put('update/{id}','VoyageController@updateVoyage');
+	$app->put('update/{id}','DestinationController@updateDestination');
  	 
-	$app->delete('delete/{id}','VoyageController@deleteVoyage');*/
+	$app->delete('delete/{id}','DestinationController@deleteDestination');
 
 });
 
