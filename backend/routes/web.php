@@ -53,6 +53,26 @@ $router->group(['prefix' => 'destination'], function($app)
 
 });
 
+$router->group(['prefix' => 'ville'], function($app)
+{	
+	$app->get('/all','VilleController@getAll');
+
+	$app->get('/{id}','VilleController@getVille');
+
+	$app->post('/add', [ 'middleware' => 'ville', 'uses' => 'VilleController@createVille' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'ville', 'uses' => 'VilleController@updateVille' ]);
+ 	 
+	$app->delete('delete/{id}','VilleController@deleteVille');
+
+});
+
+$router->group(['prefix' => 'pays'], function($app)
+{	
+	$app->get('/{id}/villes','VilleController@getAllFromPays');
+
+});
+
 $router->group(['prefix' => 'bagages'], function($app)
 {
 	$app->get('/','BagageController@getAll');

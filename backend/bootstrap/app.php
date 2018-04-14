@@ -69,6 +69,10 @@ $app->routeMiddleware([
 	'hello' => App\Http\Middleware\HelloMiddleware::class
 ]);
 
+$app->routeMiddleware([
+    'ville' => App\Http\Middleware\VilleMiddleware::class
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
