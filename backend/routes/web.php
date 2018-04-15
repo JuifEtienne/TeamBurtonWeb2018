@@ -15,102 +15,92 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// Exemple requête GET (TP PASCALE)
-$router->get( '/hello/world' , function () {
-	return "Hello World" ;
-});
-
-// Exemple GET avec paramètre et middleware (TP PASCALE)
-$router->get( '/hello/{name}' , [ 'middleware' => 'hello' , function ($name) {
-	return "Hello {$name}" ;
-}]);
-
 $router->group(['prefix' => 'voyage'], function($app)
 {
-	$app->get('/all','VoyageController@getAll');	
+	$app->get('/all', 'VoyageController@getAll');	
 
-	$app->get('/{id}','VoyageController@getVoyage');
+	$app->get('/{id}', 'VoyageController@getVoyage');
 
 	$app->get('/{id}/destinations', 'DestinationController@getAllFromVoyage');
 
-	$app->post('/add','VoyageController@createVoyage');
+	$app->post('/add', [ 'middleware' => 'voyage', 'uses' => 'VoyageController@createVoyage' ]);
 
-	$app->put('update/{id}','VoyageController@updateVoyage');
+	$app->put('update/{id}', [ 'middleware' => 'voyage', 'uses' => 'VoyageController@updateVoyage' ]);
 
-	$app->delete('delete/{id}','VoyageController@deleteVoyage');
+	$app->delete('delete/{id}', 'VoyageController@deleteVoyage');
 
 });
 
 $router->group(['prefix' => 'destination'], function($app)
 {	
-	$app->get('/{id}','DestinationController@getDestination');
+	$app->get('/{id}', 'DestinationController@getDestination');
 
-	$app->post('/add','DestinationController@createDestination');
+	$app->post('/add', [ 'middleware' => 'destination', 'uses' => 'DestinationController@createDestination' ]);
 
-	$app->put('update/{id}','DestinationController@updateDestination');
+	$app->put('update/{id}', [ 'middleware' => 'destination', 'uses' => 'DestinationController@updateDestination' ]);
  	 
-	$app->delete('delete/{id}','DestinationController@deleteDestination');
+	$app->delete('delete/{id}', 'DestinationController@deleteDestination');
 
 });
 
 $router->group(['prefix' => 'ville'], function($app)
 {	
-	$app->get('/all','VilleController@getAll');
+	$app->get('/all', 'VilleController@getAll');
 
-	$app->get('/{id}','VilleController@getVille');
+	$app->get('/{id}', 'VilleController@getVille');
 
 	$app->post('/add', [ 'middleware' => 'ville', 'uses' => 'VilleController@createVille' ]);
 
 	$app->put('update/{id}', [ 'middleware' => 'ville', 'uses' => 'VilleController@updateVille' ]);
  	 
-	$app->delete('delete/{id}','VilleController@deleteVille');
+	$app->delete('delete/{id}', 'VilleController@deleteVille');
 
 });
 
 $router->group(['prefix' => 'pays'], function($app)
 {	
-	$app->get('/{id}/villes','VilleController@getAllFromPays');
+	$app->get('/{id}/villes', 'VilleController@getAllFromPays');
 
 });
 
 $router->group(['prefix' => 'bagages'], function($app)
 {
-	$app->get('/','BagageController@getAll');
+	$app->get('/', 'BagageController@getAll');
 
-	$app->get('/{id}','BagageController@getBagage');
+	$app->get('/{id}', 'BagageController@getBagage');
 
-	$app->post('/add','BagageController@createBagage');
+	$app->post('/add', 'BagageController@createBagage');
 
-	$app->put('update/{id}','BagageController@updateBagage');
+	$app->put('update/{id}', 'BagageController@updateBagage');
 
-	$app->delete('delete/{id}','BagageController@deleteBagage');
+	$app->delete('delete/{id}', 'BagageController@deleteBagage');
 
 });
 
 $router->group(['prefix' => 'objets'], function($app)
 {
-	$app->get('/','ObjetController@getAll');
+	$app->get('/', 'ObjetController@getAll');
 
-	$app->get('/{id}','ObjetController@getObjet');
+	$app->get('/{id}', 'ObjetController@getObjet');
 
-	$app->post('/add','ObjetController@createObjet');
+	$app->post('/add', 'ObjetController@createObjet');
 
-	$app->put('update/{id}','ObjetController@updateObjet');
+	$app->put('update/{id}', 'ObjetController@updateObjet');
 
-	$app->delete('delete/{id}','ObjetController@deleteObjet');
+	$app->delete('delete/{id}', 'ObjetController@deleteObjet');
 
 });
 
 $router->group(['prefix' => 'monnaies'], function($app)
 {
-	$app->get('/','MonnaieController@getAll');
+	$app->get('/', 'MonnaieController@getAll');
 
-	$app->get('/{id}','MonnaieController@getMonnaie');
+	$app->get('/{id}', 'MonnaieController@getMonnaie');
 
-	$app->post('/add','MonnaieController@createMonnaie');
+	$app->post('/add', 'MonnaieController@createMonnaie');
 
-	$app->put('update/{id}','MonnaieController@updateMonnaie');
+	$app->put('update/{id}', 'MonnaieController@updateMonnaie');
 
-	$app->delete('delete/{id}','MonnaieController@deleteMonnaie');
+	$app->delete('delete/{id}', 'MonnaieController@deleteMonnaie');
 
 });

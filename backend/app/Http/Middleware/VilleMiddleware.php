@@ -21,7 +21,13 @@ class VilleMiddleware
         	return response( 'Le champ "idFuseau" est manquant' , 403 );
         }
 
-        /* Rajouter test pour les valeurs */
+        if (is_int($request->input('idPays')) == false) {
+            return response( 'Le format pour le champ "idPays" est invalide (format attendu : int)' , 403 );
+        }
+
+        if (is_int($request->input('idFuseau')) == false) {
+            return response( 'Le format pour le champ "idFuseau" est invalide (format attendu : int)' , 403 );
+        }
 
         return $next($request);
     }

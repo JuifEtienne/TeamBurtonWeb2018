@@ -60,13 +60,12 @@ $app->singleton(
 |
 */
 
-// Exemples d'utilisation des middleware (TP PASCALE)
-$app->middleware([
-	App\Http\Middleware\OldMiddleware::class
+$app->routeMiddleware([
+    'voyage' => App\Http\Middleware\VoyageMiddleware::class
 ]);
 
 $app->routeMiddleware([
-	'hello' => App\Http\Middleware\HelloMiddleware::class
+    'destination' => App\Http\Middleware\DestinationMiddleware::class
 ]);
 
 $app->routeMiddleware([
