@@ -63,6 +63,16 @@ $router->group(['prefix' => 'pays'], function($app)
 
 });
 
+$router->group(['prefix' => 'fuseau'], function($app)
+{	
+	$app->get('/all', 'FuseauController@getAll');
+
+	$app->get('/{id}', 'FuseauController@getFuseau');
+
+	$app->get('/{id}/heure', 'FuseauController@getHeureLocale');
+
+});
+
 $router->group(['prefix' => 'bagages'], function($app)
 {
 	$app->get('/', 'BagageController@getAll');
