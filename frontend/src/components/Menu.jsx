@@ -11,8 +11,8 @@ export default class Menu extends React.Component {
     }
     
     componentDidMount(){
-        axios.get('/voyage/all')
-        .then(function (response) {
+        axios.get('/journey/all')
+        .then(response => {
             this.setState({ voyages: response.data })
         })
         .catch(function (error) {
@@ -37,7 +37,7 @@ export default class Menu extends React.Component {
                         this.state.voyages.map((item) =>
                             <li><a>
                                 <div>icone</div>
-                                <div>{item.nom}</div>
+                                <div>{item.name}</div>
                             </a></li>
                         )
                     }
