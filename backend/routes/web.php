@@ -15,19 +15,19 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'voyage'], function($app)
+$router->group(['prefix' => 'journey'], function($app)
 {
-	$app->get('/all', 'VoyageController@getAll');	
+	$app->get('/all', 'JourneyController@getAll');	
 
-	$app->get('/{id}', 'VoyageController@getVoyage');
+	$app->get('/{id}', 'JourneyController@getJourney');
 
-	$app->get('/{id}/destinations', 'DestinationController@getAllFromVoyage');
+	$app->get('/{id}/destinations', 'DestinationController@getAllFromJourney');
 
-	$app->post('/add', [ 'middleware' => 'voyage', 'uses' => 'VoyageController@createVoyage' ]);
+	$app->post('/add', [ 'middleware' => 'journey', 'uses' => 'JourneyController@createJourney' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'voyage', 'uses' => 'VoyageController@updateVoyage' ]);
+	$app->put('update/{id}', [ 'middleware' => 'journey', 'uses' => 'JourneyController@updateJourney' ]);
 
-	$app->delete('delete/{id}', 'VoyageController@deleteVoyage');
+	$app->delete('delete/{id}', 'JourneyController@deleteJourney');
 
 });
 
@@ -43,39 +43,39 @@ $router->group(['prefix' => 'destination'], function($app)
 
 });
 
-$router->group(['prefix' => 'ville'], function($app)
+$router->group(['prefix' => 'city'], function($app)
 {	
-	$app->get('/all', 'VilleController@getAll');
+	$app->get('/all', 'CityController@getAll');
 
-	$app->get('/{id}', 'VilleController@getVille');
+	$app->get('/{id}', 'CityController@getCity');
 
-	$app->post('/add', [ 'middleware' => 'ville', 'uses' => 'VilleController@createVille' ]);
+	$app->post('/add', [ 'middleware' => 'city', 'uses' => 'CityController@createCity' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'ville', 'uses' => 'VilleController@updateVille' ]);
+	$app->put('update/{id}', [ 'middleware' => 'city', 'uses' => 'CityController@updateCity' ]);
  	 
-	$app->delete('delete/{id}', 'VilleController@deleteVille');
+	$app->delete('delete/{id}', 'CityController@deleteCity');
 
 });
 
-$router->group(['prefix' => 'pays'], function($app)
+$router->group(['prefix' => 'country'], function($app)
 {	
-	$app->get('/{id}/villes', 'VilleController@getAllFromPays');
+	$app->get('/{id}/cities', 'CityController@getAllFromCountry');
 
 });
 
-$router->group(['prefix' => 'fuseau'], function($app)
+$router->group(['prefix' => 'timezone'], function($app)
 {	
-	$app->get('/all', 'FuseauController@getAll');
+	$app->get('/all', 'TimeZoneController@getAll');
 
-	$app->get('/{id}', 'FuseauController@getFuseau');
+	$app->get('/{id}', 'TimeZoneController@getTimeZone');
 
-	$app->get('/{id}/heure', 'FuseauController@getHeureLocale');
+	$app->get('/{id}/hour', 'TimeZoneController@getLocalHour');
 
 });
 
-$router->group(['prefix' => 'bagages'], function($app)
+$router->group(['prefix' => 'bagage'], function($app)
 {
-	$app->get('/', 'BagageController@getAll');
+	$app->get('/all', 'BagageController@getAll');
 
 	$app->get('/{id}', 'BagageController@getBagage');
 
@@ -87,9 +87,9 @@ $router->group(['prefix' => 'bagages'], function($app)
 
 });
 
-$router->group(['prefix' => 'objets'], function($app)
+$router->group(['prefix' => 'objet'], function($app)
 {
-	$app->get('/', 'ObjetController@getAll');
+	$app->get('/all', 'ObjetController@getAll');
 
 	$app->get('/{id}', 'ObjetController@getObjet');
 
@@ -101,9 +101,9 @@ $router->group(['prefix' => 'objets'], function($app)
 
 });
 
-$router->group(['prefix' => 'monnaies'], function($app)
+$router->group(['prefix' => 'monnaie'], function($app)
 {
-	$app->get('/', 'MonnaieController@getAll');
+	$app->get('/all', 'MonnaieController@getAll');
 
 	$app->get('/{id}', 'MonnaieController@getMonnaie');
 
@@ -112,5 +112,17 @@ $router->group(['prefix' => 'monnaies'], function($app)
 	$app->put('update/{id}', 'MonnaieController@updateMonnaie');
 
 	$app->delete('delete/{id}', 'MonnaieController@deleteMonnaie');
+
+});
+
+$router->group(['prefix' => 'word'], function($app)
+{
+	$app->get('/all', 'WordController@getAll');
+
+	$app->post('/add', [ 'middleware' => 'word', 'uses' => 'WordController@createWord' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'word', 'uses' => 'WordController@updateWord' ]);
+
+	$app->delete('delete/{id}', 'WordController@deleteWord');
 
 });

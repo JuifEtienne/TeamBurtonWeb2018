@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class DestinationController extends Controller
 {
-    public function getAllFromVoyage($idVoyage) {
+    public function getAllFromVoyage($idJourney) {
  
-        $destinations = Destination::where('idVoyage', '=', $idVoyage)->get();
+        $destinations = Destination::where('idJourney', '=', $idJourney)->get();
  
         return response()->json($destinations);
  
@@ -34,10 +34,10 @@ class DestinationController extends Controller
     public function updateDestination(Request $request, $id) {
  
         $destination = Destination::find($id); 
-        $destination->dateArrivee = $request->input('dateArrivee');
-        $destination->dateDepart = $request->input('dateDepart');
-        $destination->idVoyage = $request->input('idVoyage');
-        $destination->idVille = $request->input('idVille');
+        $destination->arrivalDate = $request->input('arrivalDate');
+        $destination->departureDate = $request->input('departureDate');
+        $destination->idJourney = $request->input('idJourney');
+        $destination->idCity = $request->input('idCity');
         $destination->save();
  
         return response()->json($destination);
