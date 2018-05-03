@@ -76,6 +76,10 @@ $app->routeMiddleware([
     'word' => App\Http\Middleware\WordMiddleware::class
 ]);
 
+$app->middleware([
+    palanik\lumen\Middleware\LumenCors::class
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
