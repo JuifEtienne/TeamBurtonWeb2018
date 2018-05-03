@@ -61,18 +61,9 @@ $app->singleton(
 */
 
 $app->routeMiddleware([
-    'journey' => App\Http\Middleware\JourneyMiddleware::class
-]);
-
-$app->routeMiddleware([
-    'destination' => App\Http\Middleware\DestinationMiddleware::class
-]);
-
-$app->routeMiddleware([
-    'city' => App\Http\Middleware\CityMiddleware::class
-]);
-
-$app->routeMiddleware([
+    'journey' => App\Http\Middleware\JourneyMiddleware::class,
+    'destination' => App\Http\Middleware\DestinationMiddleware::class,
+    'city' => App\Http\Middleware\CityMiddleware::class,
     'word' => App\Http\Middleware\WordMiddleware::class
 ]);
 
