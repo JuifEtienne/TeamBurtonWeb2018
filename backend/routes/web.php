@@ -59,6 +59,10 @@ $router->group(['prefix' => 'city'], function($app)
 
 $router->group(['prefix' => 'country'], function($app)
 {	
+	$app->get('/all', 'CountryController@getAll');
+
+	$app->get('/{id}', 'CountryController@getCountry');
+
 	$app->get('/{id}/cities', 'CityController@getAllFromCountry');
 
 });
