@@ -1,7 +1,25 @@
 import React from 'react';
 import styles from '../assets/sass/menu.scss'
+import axios from 'axios'
 
 export default class Menu extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            voyages: []
+        }
+    }
+    
+    componentDidMount(){
+        axios.get('/journey/all')
+        .then(response => {
+            this.setState({ voyages: response.data })
+        })
+        .catch(function (error) {
+        console.log(error)
+        })
+    }
+    
   render() {
     return (
      <div>  
@@ -15,16 +33,18 @@ export default class Menu extends React.Component {
                             <div>Home</div>
                         </a>
                     </li>
-                    <li><a>
-                            <div>icone</div>
-                            <div>1st trip</div>
-                        </a>
-                    </li>
+                    {
+                        this.state.voyages.map((item) =>
+                            <li><a>
+                                <div>icone</div>
+                                <div>{item.name}</div>
+                            </a></li>
+                        )
+                    }
                 </ul>
             </nav>
         <p>© 2018 - Team Burton</p>
       </div>
-    
     );
   }
 }
