@@ -12,7 +12,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return 'Welcome to the Journeo API !';
 });
 
 $router->group(['prefix' => 'journey'], function($app)
@@ -77,34 +77,6 @@ $router->group(['prefix' => 'timezone'], function($app)
 
 });
 
-$router->group(['prefix' => 'bagage'], function($app)
-{
-	$app->get('/all', 'BagageController@getAll');
-
-	$app->get('/{id}', 'BagageController@getBagage');
-
-	$app->post('/add', 'BagageController@createBagage');
-
-	$app->put('update/{id}', 'BagageController@updateBagage');
-
-	$app->delete('delete/{id}', 'BagageController@deleteBagage');
-
-});
-
-$router->group(['prefix' => 'objet'], function($app)
-{
-	$app->get('/all', 'ObjetController@getAll');
-
-	$app->get('/{id}', 'ObjetController@getObjet');
-
-	$app->post('/add', 'ObjetController@createObjet');
-
-	$app->put('update/{id}', 'ObjetController@updateObjet');
-
-	$app->delete('delete/{id}', 'ObjetController@deleteObjet');
-
-});
-
 $router->group(['prefix' => 'monnaie'], function($app)
 {
 	$app->get('/all', 'MonnaieController@getAll');
@@ -116,6 +88,32 @@ $router->group(['prefix' => 'monnaie'], function($app)
 	$app->put('update/{id}', 'MonnaieController@updateMonnaie');
 
 	$app->delete('delete/{id}', 'MonnaieController@deleteMonnaie');
+
+});
+
+$router->group(['prefix' => 'luggage'], function($app)
+{
+	$app->get('/all', 'LuggageController@getAll');
+
+	$app->get('/{id}', 'LuggageController@getLuggage');
+
+	$app->post('/add', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@createLuggage' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
+
+	$app->delete('delete/{id}', 'LuggageController@deleteLuggage');
+
+	$app->get('/{id}/content', 'ContainController@getAllObjectsFromLuggage');
+
+});
+
+$router->group(['prefix' => 'object'], function($app)
+{
+	$app->get('/all', 'ObjectController@getAll');
+
+	$app->post('/add', [ 'middleware' => 'object', 'uses' => 'ObjectController@createObject' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'object', 'uses' => 'ObjectController@updateObject' ]);
 
 });
 
