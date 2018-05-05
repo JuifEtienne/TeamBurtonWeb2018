@@ -3,13 +3,21 @@ import styles from '../assets/sass/panel.scss'
 
 export default class Panel extends React.Component {
   render() {
+    const {children, title} = this.props
+
     return (
      <div className='panel'>
+      <div className='panelHeader'>
         <div className='control'>
-            <div className='symbols'></div>
+          <div className='symbols'></div>
         </div>
-        <p>Text inside a panel leeel Text inside a panel leeel Text inside a panel leeel Text inside a panel leeel Text inside a panel leeel</p>
+        <h2>{title}</h2>
       </div>
+
+      <div className='panelContent'>
+        {children}
+      </div>
+    </div>
     );
   }
 }
