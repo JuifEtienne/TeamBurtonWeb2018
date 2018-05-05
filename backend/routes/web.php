@@ -103,7 +103,7 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->delete('delete/{id}', 'LuggageController@deleteLuggage');
 
-	$app->get('/{id}/content', 'ContainController@getAllObjectsFromLuggage');
+	$app->get('/{id}/content', 'ObjectController@getAllFromLuggage');
 
 });
 

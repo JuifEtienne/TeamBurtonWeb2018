@@ -10,11 +10,7 @@ class Luggage extends Model {
 
 	public $timestamps = false; // Empêche le comportement par défaut de Lumen qui ajoute des champs "created_at" et "updated_at" lors de l'ajout ou de l'update d'un élément dans la table
 
-    protected $fillable = ['idLuggage', 'name'];
-
-    public function contain() {
-        return $this->hasMany('App\Classes\Contain');
-    }
+    protected $fillable = ['id', 'name'];
 
 }
 
