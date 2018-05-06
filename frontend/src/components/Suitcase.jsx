@@ -8,8 +8,8 @@ export default class Suitcase extends React.Component {
         	currentNum: 0,
         	currentName: "",
             suitcase: [
-            	{name:"pantalon", number:3},
-            	{name:"t-shirt", number:5}
+            	{name:"pantalon", number:3, checked:true},
+            	{name:"t-shirt", number:5, checked:false}
             ]
         };
     }
@@ -53,7 +53,7 @@ export default class Suitcase extends React.Component {
         </form>
 
         <ul>
-        	{this.state.suitcase.map((item) => <SuitcaseItem name={item.name} number={item.number} />) }
+        	{this.state.suitcase.map((item) => <SuitcaseItem state={item} />) }
         </ul>
       </div>
     );
