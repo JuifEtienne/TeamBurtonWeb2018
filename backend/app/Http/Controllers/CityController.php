@@ -10,7 +10,7 @@ class CityController extends Controller
 {
     public function getAll() {
 
-        $cities = City::all();
+        $cities = City::orderBy('name')->get();
 
         return response()->json($cities);
 
@@ -18,7 +18,7 @@ class CityController extends Controller
 
     public function getAllFromCountry($idCountry) {
  
-        $cities = City::where('idCountry', '=', $idCountry)->get();
+        $cities = City::where('idCountry', '=', $idCountry)->orderBy('name')->get();
  
         return response()->json($cities);
  

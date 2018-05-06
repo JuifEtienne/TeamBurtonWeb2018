@@ -11,7 +11,7 @@ class ObjectController extends Controller
 {
     public function getAll() {
 
-        $objects = Object::all();
+        $objects = Object::orderBy('idCategory')->orderBy('name')->get();
 
         return response()->json($objects);
 
@@ -20,8 +20,11 @@ class ObjectController extends Controller
     public function getAllFromLuggage($idLuggage) {
 
         $objects = DB::table('object')
-            ->select('present', 'name', 'quantity', 'idObject', 'idLuggage')
+            ->select('name', 'present', 'quantity', 'idObject', 'idLuggage', 'idCategory')
             ->join('contain', 'object.id', '=', 'contain.idObject')
+            ->where('idLuggage', '=', $idLuggage)
+            ->orderBy('idCategory')
+            ->orderBy('name')
             ->get();
 
         return response()->json($objects);

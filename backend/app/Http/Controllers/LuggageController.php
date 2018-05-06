@@ -10,7 +10,7 @@ class LuggageController extends Controller
 {
     public function getAll() {
 
-        $luggages = Luggage::all();
+        $luggages = Luggage::orderBy('name')->get();
 
         return response()->json($luggages);
 
