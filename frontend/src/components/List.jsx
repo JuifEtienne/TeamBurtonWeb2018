@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../assets/sass/list.scss'
 
 export default class List extends React.Component {
 	constructor(props){
@@ -50,14 +51,15 @@ export default class List extends React.Component {
     
     printList(){
         return this.state.list.map(item =>{
-                                  return <li>
-                                      <p>
-                                        {item.name}
-                                        <span>{item.number}</span>
-                                        <button onClick={() => this.onChekChange(item.id)} >{item.checked ? 'v' : '!'}</button>
-                                        <button onClick={() => this.deleteFromList(item.id)}>X</button>
-                                      </p>
-                                  </li> })
+            return <li>
+                        <p>
+                            {item.name}
+                            <span>{item.number}</span>
+                            <button onClick={() => this.onChekChange(item.id)} >{item.checked ? 'v' : '!'}</button>
+                            <button onClick={() => this.deleteFromList(item.id)}>X</button>
+                        </p>
+                    </li> 
+        })
     }
 
   render() {
