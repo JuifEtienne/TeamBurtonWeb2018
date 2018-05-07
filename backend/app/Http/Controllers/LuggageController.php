@@ -15,7 +15,6 @@ class LuggageController extends Controller
         $luggages = Luggage::orderBy('name')->get();
 
         return response()->json($luggages);
-
     }
 
     public function getLuggage($id) {

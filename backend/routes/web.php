@@ -105,11 +105,11 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->get('/{id}/content', 'ObjectController@getAllFromLuggage');
 
-  $app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
+ 	$app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
 
-  $app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
+  	$app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
 
-  $app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
+ 	$app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
 
 });
 
@@ -125,11 +125,13 @@ $router->group(['prefix' => 'object'], function($app)
 
 $router->group(['prefix' => 'paper'], function($app)
 {
-	$app->get('/all', 'ObjectController@getAll');
+	$app->get('/all', 'PaperController@getAll');
 
-	$app->post('/add', [ 'middleware' => 'object', 'uses' => 'ObjectController@createObject' ]);
+	$app->get('/{id}', 'PaperController@getPaper');
 
-	$app->put('update/{id}', [ 'middleware' => 'object', 'uses' => 'ObjectController@updateObject' ]);
+	$app->post('/add', [ 'middleware' => 'paper', 'uses' => 'PaperController@createPaper' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'paper', 'uses' => 'PaperController@updatePaper' ]);
 
 });
 
