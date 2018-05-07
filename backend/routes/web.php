@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'journey'], function($app)
 {
-	$app->get('/all', 'JourneyController@getAll');	
+	$app->get('/all', 'JourneyController@getAll');
 
 	$app->get('/{id}', 'JourneyController@getJourney');
 
@@ -32,19 +32,19 @@ $router->group(['prefix' => 'journey'], function($app)
 });
 
 $router->group(['prefix' => 'destination'], function($app)
-{	
+{
 	$app->get('/{id}', 'DestinationController@getDestination');
 
 	$app->post('/add', [ 'middleware' => 'destination', 'uses' => 'DestinationController@createDestination' ]);
 
 	$app->put('update/{id}', [ 'middleware' => 'destination', 'uses' => 'DestinationController@updateDestination' ]);
- 	 
+
 	$app->delete('delete/{id}', 'DestinationController@deleteDestination');
 
 });
 
 $router->group(['prefix' => 'city'], function($app)
-{	
+{
 	$app->get('/all', 'CityController@getAll');
 
 	$app->get('/{id}', 'CityController@getCity');
@@ -52,13 +52,13 @@ $router->group(['prefix' => 'city'], function($app)
 	$app->post('/add', [ 'middleware' => 'city', 'uses' => 'CityController@createCity' ]);
 
 	$app->put('update/{id}', [ 'middleware' => 'city', 'uses' => 'CityController@updateCity' ]);
- 	 
+
 	$app->delete('delete/{id}', 'CityController@deleteCity');
 
 });
 
 $router->group(['prefix' => 'country'], function($app)
-{	
+{
 	$app->get('/all', 'CountryController@getAll');
 
 	$app->get('/{id}', 'CountryController@getCountry');
@@ -68,7 +68,7 @@ $router->group(['prefix' => 'country'], function($app)
 });
 
 $router->group(['prefix' => 'timezone'], function($app)
-{	
+{
 	$app->get('/all', 'TimeZoneController@getAll');
 
 	$app->get('/{id}', 'TimeZoneController@getTimeZone');
@@ -85,9 +85,9 @@ $router->group(['prefix' => 'monnaie'], function($app)
 
 	$app->post('/add', 'MonnaieController@createMonnaie');
 
-	$app->put('update/{id}', 'MonnaieController@updateMonnaie');
+	$app->put('/update/{id}', 'MonnaieController@updateMonnaie');
 
-	$app->delete('delete/{id}', 'MonnaieController@deleteMonnaie');
+	$app->delete('/delete/{id}', 'MonnaieController@deleteMonnaie');
 
 });
 
@@ -99,11 +99,17 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@createLuggage' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
+	$app->put('/update/{id}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
 
-	$app->delete('delete/{id}', 'LuggageController@deleteLuggage');
+	$app->delete('/delete/{id}', 'LuggageController@deleteLuggage');
 
 	$app->get('/{id}/content', 'ObjectController@getAllFromLuggage');
+
+  $app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
+
+  $app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
+
+  $app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
 
 });
 
