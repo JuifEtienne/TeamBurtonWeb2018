@@ -117,6 +117,16 @@ $router->group(['prefix' => 'object'], function($app)
 
 });
 
+$router->group(['prefix' => 'paper'], function($app)
+{
+	$app->get('/all', 'ObjectController@getAll');
+
+	$app->post('/add', [ 'middleware' => 'object', 'uses' => 'ObjectController@createObject' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'object', 'uses' => 'ObjectController@updateObject' ]);
+
+});
+
 $router->group(['prefix' => 'word'], function($app)
 {
 	$app->get('/all', 'WordController@getAll');
