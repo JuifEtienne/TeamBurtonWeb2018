@@ -15,6 +15,7 @@ class LuggageController extends Controller
         $luggages = Luggage::orderBy('name')->get();
 
         return response()->json($luggages);
+        
     }
 
     public function getLuggage($id) {
@@ -22,13 +23,15 @@ class LuggageController extends Controller
         $luggage = Luggage::find($id); // find permet de récupérer un objet par sa clé primaire
 
         return response()->json($luggage);
+
     }
 
     public function createLuggage(Request $request) {
 
         $luggage = Luggage::create($request->all());
 
-        return response()->json($luggage);
+        return response()->json('Added successfully');
+
     }
 
     public function updateLuggage(Request $request, $id) {
@@ -37,7 +40,8 @@ class LuggageController extends Controller
         $luggage->name = $request->input('name');
         $luggage->save();
 
-        return response()->json($luggage);
+        return response()->json('Updated successfully');
+
     }
 
     public function deleteLuggage($id) {
@@ -45,7 +49,8 @@ class LuggageController extends Controller
         $luggage = Luggage::find($id);
         $luggage->delete();
 
-        return response()->json('Removed successfully.');
+        return response()->json('Removed successfully');
+
     }
 
     public function getAllObjectsFromLuggage($idLuggage) {
@@ -69,15 +74,17 @@ class LuggageController extends Controller
             ->max('idObject');
 
         return response()->json(['idMax' => $idMax]);
+
     }
 
     public function addObjectToLuggage(Request $request, $idLuggage) {
 
         DB::table('contain')->insert([
-        'present' => $request->input('present'),
-        'quantity' => $request->input('quantity'),
-        'idObject' => $request->input('idObject'),
-        'idLuggage' => $idLuggage]);
+            'present' => $request->input('present'),
+            'quantity' => $request->input('quantity'),
+            'idObject' => $request->input('idObject'),
+            'idLuggage' => $idLuggage
+        ]);
 
         return response()->json('Added successfully');
 
@@ -85,9 +92,13 @@ class LuggageController extends Controller
 
     public function updateObjectFromLuggage(Request $request, $idLuggage) {
 
-        DB::table('contain')->where('idObject', '=', $request->input('idObject'))->where('idLuggage', '=', $idLuggage)->update([
-          'present' => $request->input('present'),
-          'quantity' => $request->input('quantity')]);
+        DB::table('contain')
+            ->where('idObject', '=', $request->input('idObject'))
+            ->where('idLuggage', '=', $idLuggage)
+            ->update([
+              'present' => $request->input('present'),
+              'quantity' => $request->input('quantity')
+            ]);
 
         return response()->json('Updated successfully');
 
@@ -95,7 +106,10 @@ class LuggageController extends Controller
 
     public function deleteObjectFromLuggage($idObject, $idLuggage) {
 
-        DB::table('contain')->where('idObject', '=', $idObject)->where('idLuggage', '=', $idLuggage)->delete();
+        DB::table('contain')
+            ->where('idObject', '=', $idObject)
+            ->where('idLuggage', '=', $idLuggage)
+            ->delete();
 
         return response()->json('Removed successfully');
 

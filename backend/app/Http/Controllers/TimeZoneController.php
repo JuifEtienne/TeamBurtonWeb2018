@@ -13,6 +13,7 @@ class TimeZoneController extends Controller
         $timeZone = TimeZone::all();
 
         return response()->json($timeZone);
+
     }
 
     public function getTimeZone($id) {
@@ -20,6 +21,7 @@ class TimeZoneController extends Controller
         $timeZone = TimeZone::find($id);
 
         return response()->json($timeZone);
+
     }
 
     public function getLocalHour($id) {
@@ -30,6 +32,7 @@ class TimeZoneController extends Controller
         $hour = date('H:i');
 
         return response()->json(['localHour' => $hour]);
+        
     }
    
 }

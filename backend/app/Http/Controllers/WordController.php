@@ -15,13 +15,14 @@ class WordController extends Controller
         // Appel API translation (Yandex ?)
 
         return response()->json($words);
+        
     }
 
     public function createWord(Request $request) {
  
         $word = Word::create($request->all());
  
-        return response()->json($word);
+        return response()->json('Added successfully');
  
     }
  
@@ -31,7 +32,8 @@ class WordController extends Controller
         $word->word = $request->input('word');
         $word->save();
  
-        return response()->json($word);
+        return response()->json('Updated successfully');
+
     }  
  
     public function deleteWord($id) {
@@ -39,7 +41,8 @@ class WordController extends Controller
         $word = Word::find($id);
         $word->delete();
  
-        return response()->json('Removed successfully.');
+        return response()->json('Removed successfully');
+
     }
    
 }

@@ -13,6 +13,7 @@ class PaperController extends Controller
         $papers = Paper::orderBy('name')->get();
 
         return response()->json($papers);
+
     }
 
     public function getPaper($id) {
@@ -20,13 +21,15 @@ class PaperController extends Controller
         $paper = Paper::find($id);
 
         return response()->json($paper);
+
     }
 
     public function createPaper(Request $request) {
  
         $paper = Paper::create($request->all());
 
-        return response()->json('Added successfully.');
+        return response()->json('Added successfully');
+
     }
  
     public function updatePaper(Request $request, $id) {
@@ -36,7 +39,8 @@ class PaperController extends Controller
         $paper->note = $request->input('note');
         $paper->save();
  
-        return response()->json('Updated successfully.');
+        return response()->json('Updated successfully');
+        
     } 
    
 }

@@ -14,13 +14,15 @@ class ObjectController extends Controller
         $objects = Objet::orderBy('idCategory')->orderBy('name')->get();
 
         return response()->json($objects);
+        
     }
 
     public function createObject(Request $request) {
 
         $object = Objet::create($request->all());
 
-        return response()->json($object);
+        return response()->json('Added successfully');
+
     }
 
     public function updateObject(Request $request, $id) {
@@ -30,7 +32,8 @@ class ObjectController extends Controller
         $object->idCategory = $request->input('idCategory');
         $object->save();
 
-        return response()->json($object);
+        return response()->json('Updated successfully');
+
     }
 
 }
