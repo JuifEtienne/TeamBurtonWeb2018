@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Classes\Luggage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class LuggageController extends Controller
 {
@@ -46,6 +48,26 @@ class LuggageController extends Controller
         $luggage->delete();
 
         return response()->json('Removed successfully.');
+    }
+
+    public function addObjectToLuggage(Request $request, $idLuggage) {
+
+        DB::table('contain')->insert([
+        'present' => $request->input('present'),
+        'quantity' => $request->input('quantity'),
+        'idObject' => $request->input('idObject'),
+        'idLuggage' => $idLuggage]);
+
+        return response()->json('Added successfully');
+
+    }
+
+    public function deleteObjectFromLuggage($idObject, $idLuggage) {
+
+        DB::table('contain')->where('idObject', '=', $idObject)->where('idLuggage', '=', $idLuggage)->delete();
+
+        return response()->json('Deleted successfully');
+
     }
 
 
