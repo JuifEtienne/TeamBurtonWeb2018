@@ -62,6 +62,16 @@ class LuggageController extends Controller
 
     }
 
+    public function updateObjectFromLuggage(Request $request, $idLuggage) {
+
+        DB::table('contain')->where('idObject', '=', $request->input('idObject'))->where('idLuggage', '=', $idLuggage)->update([
+          'present' => $request->input('present'),
+          'quantity' => $request->input('quantity')]);
+
+        return response()->json('Updated successfully');
+
+    }
+
     public function deleteObjectFromLuggage($idObject, $idLuggage) {
 
         DB::table('contain')->where('idObject', '=', $idObject)->where('idLuggage', '=', $idLuggage)->delete();

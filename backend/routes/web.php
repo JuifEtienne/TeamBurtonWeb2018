@@ -107,6 +107,8 @@ $router->group(['prefix' => 'luggage'], function($app)
 
   $app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
 
+  $app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
+
   $app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
 
 });
