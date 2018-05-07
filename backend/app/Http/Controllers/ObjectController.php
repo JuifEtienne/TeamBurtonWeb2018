@@ -14,21 +14,6 @@ class ObjectController extends Controller
         $objects = Objet::orderBy('idCategory')->orderBy('name')->get();
 
         return response()->json($objects);
-
-    }
-
-    public function getAllFromLuggage($idLuggage) {
-
-        $objects = DB::table('object')
-            ->select('name', 'present', 'quantity', 'idObject', 'idLuggage', 'idCategory')
-            ->join('contain', 'object.id', '=', 'contain.idObject')
-            ->where('idLuggage', '=', $idLuggage)
-            ->orderBy('idCategory')
-            ->orderBy('name')
-            ->get();
-
-        return response()->json($objects);
-
     }
 
     public function createObject(Request $request) {
@@ -36,7 +21,6 @@ class ObjectController extends Controller
         $object = Objet::create($request->all());
 
         return response()->json($object);
-
     }
 
     public function updateObject(Request $request, $id) {

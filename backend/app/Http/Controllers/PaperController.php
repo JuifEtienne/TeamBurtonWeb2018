@@ -25,8 +25,8 @@ class PaperController extends Controller
     public function createPaper(Request $request) {
  
         $paper = Paper::create($request->all());
- 
-        return response()->json($paper); 
+
+        return response()->json('Added successfully.');
     }
  
     public function updatePaper(Request $request, $id) {
@@ -36,7 +36,7 @@ class PaperController extends Controller
         $paper->note = $request->input('note');
         $paper->save();
  
-        return response()->json($paper);
+        return response()->json('Updated successfully.');
     } 
    
 }

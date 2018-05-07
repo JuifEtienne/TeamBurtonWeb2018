@@ -103,13 +103,15 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->delete('/delete/{id}', 'LuggageController@deleteLuggage');
 
-	$app->get('/{id}/content', 'ObjectController@getAllFromLuggage');
+	$app->get('/{id}/content', 'LuggageController@getAllObjectsFromLuggage');
 
  	$app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
 
   	$app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
 
  	$app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
+
+ 	$app->get('/{id}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
 
 });
 

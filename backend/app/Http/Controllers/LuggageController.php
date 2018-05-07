@@ -29,7 +29,6 @@ class LuggageController extends Controller
         $luggage = Luggage::create($request->all());
 
         return response()->json($luggage);
-
     }
 
     public function updateLuggage(Request $request, $id) {
@@ -47,6 +46,29 @@ class LuggageController extends Controller
         $luggage->delete();
 
         return response()->json('Removed successfully.');
+    }
+
+    public function getAllObjectsFromLuggage($idLuggage) {
+
+        $objects = DB::table('object')
+            ->select('name', 'present', 'quantity', 'idObject', 'idLuggage', 'idCategory')
+            ->join('contain', 'object.id', '=', 'contain.idObject')
+            ->where('idLuggage', '=', $idLuggage)
+            ->orderBy('idCategory')
+            ->orderBy('name')
+            ->get();
+
+        return response()->json($objects);
+
+    }
+
+    public function getIdObjectMaxFromLuggage(Request $request, $idLuggage) {
+
+        $idMax = DB::table('contain')
+            ->where('idLuggage', '=', $idLuggage)
+            ->max('idObject');
+
+        return response()->json(['idMax' => $idMax]);
     }
 
     public function addObjectToLuggage(Request $request, $idLuggage) {
@@ -75,7 +97,7 @@ class LuggageController extends Controller
 
         DB::table('contain')->where('idObject', '=', $idObject)->where('idLuggage', '=', $idLuggage)->delete();
 
-        return response()->json('Deleted successfully');
+        return response()->json('Removed successfully');
 
     }
 
