@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class LuggageController extends Controller
 {
     public function getAll() {
@@ -18,7 +17,7 @@ class LuggageController extends Controller
         
     }
 
-    public function getLuggage($id) {
+    public function getLuggage($idLuggage) {
 
         $luggage = Luggage::find($id); // find permet de récupérer un objet par sa clé primaire
 
@@ -34,7 +33,7 @@ class LuggageController extends Controller
 
     }
 
-    public function updateLuggage(Request $request, $id) {
+    public function updateLuggage(Request $request, $idLuggage) {
 
         $luggage = Luggage::find($id);
         $luggage->name = $request->input('name');
@@ -44,7 +43,7 @@ class LuggageController extends Controller
 
     }
 
-    public function deleteLuggage($id) {
+    public function deleteLuggage($idLuggage) {
 
         $luggage = Luggage::find($id);
         $luggage->delete();
@@ -96,8 +95,8 @@ class LuggageController extends Controller
             ->where('idObject', '=', $request->input('idObject'))
             ->where('idLuggage', '=', $idLuggage)
             ->update([
-              'present' => $request->input('present'),
-              'quantity' => $request->input('quantity')
+                'present' => $request->input('present'),
+                'quantity' => $request->input('quantity')
             ]);
 
         return response()->json('Updated successfully');

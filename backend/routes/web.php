@@ -41,6 +41,16 @@ $router->group(['prefix' => 'destination'], function($app)
 
 	$app->delete('delete/{id}', 'DestinationController@deleteDestination');
 
+	// Papers
+
+	$app->get('/{idDestination}/papers', 'PaperController@getAllFromDestination');
+
+	$app->post('/{idDestination}/add/paper', 'PaperController@addPaperToDestination');
+
+  	$app->put('/{idDestination}/update/paper/{idPaper}', 'PaperController@updatePaperFromDestination');
+
+ 	$app->delete('/{idDestination}/delete/paper/{idPaper}', 'PaperController@deletePaperFromDestination');
+
 });
 
 $router->group(['prefix' => 'city'], function($app)
@@ -95,15 +105,15 @@ $router->group(['prefix' => 'luggage'], function($app)
 {
 	$app->get('/all', 'LuggageController@getAll');
 
-	$app->get('/{id}', 'LuggageController@getLuggage');
+	$app->get('/{idLuggage}', 'LuggageController@getLuggage');
 
 	$app->post('/add', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@createLuggage' ]);
 
-	$app->put('/update/{id}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
+	$app->put('/update/{idLuggage}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
 
-	$app->delete('/delete/{id}', 'LuggageController@deleteLuggage');
+	$app->delete('/delete/{idLuggage}', 'LuggageController@deleteLuggage');
 
-	$app->get('/{id}/content', 'LuggageController@getAllObjectsFromLuggage');
+	$app->get('/{idLuggage}/content', 'LuggageController@getAllObjectsFromLuggage');
 
  	$app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
 
@@ -111,7 +121,7 @@ $router->group(['prefix' => 'luggage'], function($app)
 
  	$app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
 
- 	$app->get('/{id}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
+ 	$app->get('/{idLuggage}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
 
 });
 
@@ -129,11 +139,11 @@ $router->group(['prefix' => 'paper'], function($app)
 {
 	$app->get('/all', 'PaperController@getAll');
 
-	$app->get('/{id}', 'PaperController@getPaper');
+	$app->get('/{idPaper}', 'PaperController@getPaper');
 
 	$app->post('/add', [ 'middleware' => 'paper', 'uses' => 'PaperController@createPaper' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'paper', 'uses' => 'PaperController@updatePaper' ]);
+	$app->put('update/{idPaper}', [ 'middleware' => 'paper', 'uses' => 'PaperController@updatePaper' ]);
 
 });
 
