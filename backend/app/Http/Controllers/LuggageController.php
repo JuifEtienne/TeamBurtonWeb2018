@@ -14,12 +14,12 @@ class LuggageController extends Controller
         $luggages = Luggage::orderBy('name')->get();
 
         return response()->json($luggages);
-        
+
     }
 
     public function getLuggage($idLuggage) {
 
-        $luggage = Luggage::find($id); // find permet de récupérer un objet par sa clé primaire
+        $luggage = Luggage::find($idLuggage); // find permet de récupérer un objet par sa clé primaire
 
         return response()->json($luggage);
 
@@ -45,7 +45,7 @@ class LuggageController extends Controller
 
     public function deleteLuggage($idLuggage) {
 
-        $luggage = Luggage::find($id);
+        $luggage = Luggage::find($idLuggage);
         $luggage->delete();
 
         return response()->json('Removed successfully');

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Classes\Paper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,29 +19,29 @@ class PaperController extends Controller
 
     public function getPaper($idPaper) {
 
-        $paper = Paper::find($id);
+        $paper = Paper::find($idPaper);
 
         return response()->json($paper);
 
     }
 
     public function createPaper(Request $request) {
- 
+
         $paper = Paper::create($request->all());
 
         return response()->json('Added successfully');
 
     }
- 
+
     public function updatePaper(Request $request, $idPaper) {
- 
-        $paper = Paper::find($id); 
+
+        $paper = Paper::find($idPaper); 
         $paper->name = $request->input('name');
         $paper->note = $request->input('note');
         $paper->save();
- 
+
         return response()->json('Updated successfully');
-        
+
     }
 
     public function getAllFromDestination($idDestination) {
@@ -55,7 +55,7 @@ class PaperController extends Controller
 
         return response()->json($papers);
 
-    } 
+    }
 
     public function addPaperToDestination(Request $request, $idDestination) {
 
@@ -73,7 +73,7 @@ class PaperController extends Controller
 
         DB::table('need')
             ->where('idDestination', '=', $idDestination)
-            ->where('idPaper', '=', $idPaper)            
+            ->where('idPaper', '=', $idPaper)
             ->update([
                 'valid' => $request->input('valid')
             ]);
@@ -94,5 +94,5 @@ class PaperController extends Controller
     }
 
 
-   
+
 }
