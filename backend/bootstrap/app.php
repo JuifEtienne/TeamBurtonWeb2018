@@ -67,6 +67,7 @@ $app->routeMiddleware([
     'luggage' => App\Http\Middleware\LuggageMiddleware::class,
     'object' => App\Http\Middleware\ObjectMiddleware::class,
     'paper' => App\Http\Middleware\PaperMiddleware::class,
+    'destinationPaper' => App\Http\Middleware\DestinationPaperMiddleware::class,
     'word' => App\Http\Middleware\WordMiddleware::class
 ]);
 

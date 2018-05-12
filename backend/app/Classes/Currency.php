@@ -4,13 +4,13 @@ namespace App\Classes;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Monnaie extends Model {
+class Currency extends Model {
 
-	public $table = 'monnaie'; //  Spécifie le nom de la table (par défaut un 's' est ajouté sinon et ça fout la merde) !
+	public $table = 'currency'; //  Spécifie le nom de la table (par défaut un 's' est ajouté sinon et ça fout la merde) !
 
 	public $timestamps = false; // Empêche le comportement par défaut de Lumen qui ajoute des champs "created_at" et "updated_at" lors de l'ajout ou de l'update d'un élément dans la table
 
-    protected $fillable = ['idMonnaie', 'nom', 'symbole'];
+    protected $fillable = ['idCurrency', 'name', 'symbol'];
 
 }
 
