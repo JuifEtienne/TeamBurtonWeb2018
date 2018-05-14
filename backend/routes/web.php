@@ -141,6 +141,8 @@ $router->group(['prefix' => 'luggage'], function($app)
 
   	$app->put('/{idLuggage}/object/{idObject}/present', 'LuggageController@objectIsPresentInLuggage');
 
+  	$app->delete('/{idLuggage}/object/{idObject}/delete', 'LuggageController@deleteObjectFromLuggage');
+
  	$app->get('/{idLuggage}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
 
 });
