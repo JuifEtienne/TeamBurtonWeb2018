@@ -53,7 +53,7 @@ $router->group(['prefix' => 'destination'], function($app)
 
     $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
 
- 	$app->delete('/{idDestination}/delete/paper/{idPaper}', 'PaperController@deletePaperFromDestination');
+ 	$app->delete('/{idDestination}/paper/{idPaper}/delete', 'PaperController@deletePaperFromDestination');
 
  	// Activities
 
