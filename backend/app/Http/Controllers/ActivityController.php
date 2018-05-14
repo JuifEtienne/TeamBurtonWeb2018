@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Classes\Activity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
+
     public function getAll() {
 
         $activities = Activity::all();
@@ -50,6 +52,40 @@ class ActivityController extends Controller
         return response()->json('Removed successfully.');
     }
 
+    public function getAllFromDestination($idDestination) {
+
+        $activities = DB::table('activity')
+            ->select('activity.id', 'name', 'price', 'date')
+            ->join('include', 'activity.id', '=', 'include.idActivity')
+            ->where('idDestination', '=', $idDestination)
+            ->orderBy('date')
+            ->get();
+
+        return response()->json($activities);
+
+    } 
+
+    public function addActivityToDestination($idDestination, $idActivity) {
+
+        DB::table('include')->insert([
+            'idActivity' => $idActivity,
+            'idDestination' => $idDestination
+        ]);
+
+        return response()->json('Added successfully');
+
+    }
+
+    public function deleteActivityFromDestination($idDestination, $idActivity) {
+
+        DB::table('include')
+            ->where('idDestination', '=', $idDestination)
+            ->where('idActivity', '=', $idActivity)
+            ->delete();
+
+        return response()->json('Removed successfully');
+
+    }
 
 }
 
