@@ -21,13 +21,15 @@ $router->group(['prefix' => 'journey'], function($app)
 
 	$app->get('/{id}', 'JourneyController@getJourney');
 
-	$app->get('/{id}/destinations', 'DestinationController@getAllFromJourney');
-
 	$app->post('/add', [ 'middleware' => 'journey', 'uses' => 'JourneyController@createJourney' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'journey', 'uses' => 'JourneyController@updateJourney' ]);
+	$app->put('{id/}update', [ 'middleware' => 'journey', 'uses' => 'JourneyController@updateJourney' ]);
 
-	$app->delete('delete/{id}', 'JourneyController@deleteJourney');
+	$app->delete('{id}/delete', 'JourneyController@deleteJourney');
+
+  /* Destinations */
+
+  $app->get('/{id}/destinations', 'DestinationController@getAllFromJourney');
 
 });
 
@@ -37,19 +39,19 @@ $router->group(['prefix' => 'destination'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'destination', 'uses' => 'DestinationController@createDestination' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'destination', 'uses' => 'DestinationController@updateDestination' ]);
+	$app->put('{id}/update', [ 'middleware' => 'destination', 'uses' => 'DestinationController@updateDestination' ]);
 
-	$app->delete('delete/{id}', 'DestinationController@deleteDestination');
+	$app->delete('{id}/delete', 'DestinationController@deleteDestination');
 
 	// Papers
 
 	$app->get('/{idDestination}/papers', 'PaperController@getAllFromDestination');
 
-	$app->post('/{idDestination}/add/paper', 'PaperController@addPaperToDestination');
+	$app->post('/{idDestination}/paper/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
 
-  	$app->put('/{idDestination}/update/paper/{idPaper}', 'PaperController@updatePaperFromDestination');
+  $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
 
- 	$app->delete('/{idDestination}/delete/paper/{idPaper}', 'PaperController@deletePaperFromDestination');
+ 	$app->delete('/{idDestination}/paper/{idPaper}/delete', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@deletePaperFromDestination']);
 
 });
 
@@ -61,9 +63,9 @@ $router->group(['prefix' => 'city'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'city', 'uses' => 'CityController@createCity' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'city', 'uses' => 'CityController@updateCity' ]);
+	$app->put('{id}/update', [ 'middleware' => 'city', 'uses' => 'CityController@updateCity' ]);
 
-	$app->delete('delete/{id}', 'CityController@deleteCity');
+	$app->delete('{id}/delete', 'CityController@deleteCity');
 
 });
 
@@ -73,7 +75,13 @@ $router->group(['prefix' => 'country'], function($app)
 
 	$app->get('/{id}', 'CountryController@getCountry');
 
+  /* Cities */
+
 	$app->get('/{id}/cities', 'CityController@getAllFromCountry');
+
+  /* Currency */
+
+  $app->get('/{idCountry}/currency', 'CurrencyController@getCurrencyFromCountry');
 
 });
 
@@ -87,17 +95,17 @@ $router->group(['prefix' => 'timezone'], function($app)
 
 });
 
-$router->group(['prefix' => 'monnaie'], function($app)
+$router->group(['prefix' => 'currency'], function($app)
 {
-	$app->get('/all', 'MonnaieController@getAll');
+	$app->get('/all', 'CurrencyController@getAll');
 
-	$app->get('/{id}', 'MonnaieController@getMonnaie');
+	$app->get('/{idCurrency}', 'CurrencyController@getCurrency');
 
-	$app->post('/add', 'MonnaieController@createMonnaie');
+	$app->post('/add', 'CurrencyController@createCurrency');
 
-	$app->put('/update/{id}', 'MonnaieController@updateMonnaie');
+	$app->put('/{idCurrency}/update', 'CurrencyController@updateCurrency');
 
-	$app->delete('/delete/{id}', 'MonnaieController@deleteMonnaie');
+	$app->delete('/{idCurrency}/delete', 'CurrencyController@deleteCurrency');
 
 });
 
@@ -109,19 +117,23 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@createLuggage' ]);
 
-	$app->put('/update/{idLuggage}', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
+	$app->put('/{idLuggage}/update', [ 'middleware' => 'luggage', 'uses' => 'LuggageController@updateLuggage' ]);
 
-	$app->delete('/delete/{idLuggage}', 'LuggageController@deleteLuggage');
+	$app->delete('/{idLuggage}/delete', 'LuggageController@deleteLuggage');
+
+  /* Objects */
 
 	$app->get('/{idLuggage}/content', 'LuggageController@getAllObjectsFromLuggage');
 
- 	$app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
+ 	$app->post('/{idLuggage}/object/add', ['middleware' => 'luggageObject', 'uses' => 'LuggageController@addObjectToLuggage']);
 
-  	$app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
+	$app->put('/{idLuggage}/object/{idObject}/update', 'LuggageController@updateObjectFromLuggage');
 
- 	$app->delete('/delete/{idObject}/from/{idLuggage}', 'LuggageController@deleteObjectFromLuggage');
+  $app->put('/{idLuggage}/object/{idObject}/present', 'LuggageController@objectIsPresentInLuggage');
 
- 	$app->get('/{idLuggage}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
+ 	$app->delete('/{idLuggage}/object/{idObject}/delete', 'LuggageController@deleteObjectFromLuggage');
+
+ 	$app->get('/{idLuggage}/object/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
 
 });
 
@@ -131,7 +143,7 @@ $router->group(['prefix' => 'object'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'object', 'uses' => 'ObjectController@createObject' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'object', 'uses' => 'ObjectController@updateObject' ]);
+	$app->put('{id}/update', [ 'middleware' => 'object', 'uses' => 'ObjectController@updateObject' ]);
 
 });
 
@@ -143,7 +155,7 @@ $router->group(['prefix' => 'paper'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'paper', 'uses' => 'PaperController@createPaper' ]);
 
-	$app->put('update/{idPaper}', [ 'middleware' => 'paper', 'uses' => 'PaperController@updatePaper' ]);
+	$app->put('{idPaper}/update', [ 'middleware' => 'paper', 'uses' => 'PaperController@updatePaper' ]);
 
 });
 
@@ -153,9 +165,9 @@ $router->group(['prefix' => 'word'], function($app)
 
 	$app->post('/add', [ 'middleware' => 'word', 'uses' => 'WordController@createWord' ]);
 
-	$app->put('update/{id}', [ 'middleware' => 'word', 'uses' => 'WordController@updateWord' ]);
+	$app->put('{id}/update', [ 'middleware' => 'word', 'uses' => 'WordController@updateWord' ]);
 
-	$app->delete('delete/{id}', 'WordController@deleteWord');
+	$app->delete('{id}/delete', 'WordController@deleteWord');
 
 });
 
