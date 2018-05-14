@@ -166,6 +166,17 @@ $router->group(['prefix' => 'word'], function($app)
 	$app->post('/add', [ 'middleware' => 'word', 'uses' => 'WordController@createWord' ]);
 
 	$app->put('{id}/update', [ 'middleware' => 'word', 'uses' => 'WordController@updateWord' ]);
-	
+
 	$app->delete('{id}/delete', 'WordController@deleteWord');
+});
+
+$router->group(['prefix' => 'activity'], function($app)
+{
+	$app->get('/all', 'ActivityController@getAll');
+
+	$app->post('/add', [ 'middleware' => 'activity', 'uses' => 'ActivityController@createActivity' ]);
+
+	$app->put('{id}/update', [ 'middleware' => 'activity', 'uses' => 'ActivityController@updateActivity' ]);
+	
+	$app->delete('{id}/delete', 'ActivityController@deleteActivity');
 });
