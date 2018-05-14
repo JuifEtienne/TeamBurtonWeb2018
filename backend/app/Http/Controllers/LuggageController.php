@@ -76,12 +76,12 @@ class LuggageController extends Controller
 
     }
 
-    public function addObjectToLuggage(Request $request, $idLuggage) {
+    public function addObjectToLuggage(Request $request, $idLuggage, $idObject) {
 
         DB::table('contain')->insert([
             'present' => $request->input('present'),
             'quantity' => $request->input('quantity'),
-            'idObject' => $request->input('idObject'),
+            'idObject' => $idObject,
             'idLuggage' => $idLuggage
         ]);
 

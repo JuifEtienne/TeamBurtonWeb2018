@@ -137,11 +137,13 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->get('/{idLuggage}/content', 'LuggageController@getAllObjectsFromLuggage');
 
- 	$app->post('/{idLuggage}/add', 'LuggageController@addObjectToLuggage');
+	$app->post('/{idLuggage}/object/{idObject}/add', ['middleware' => 'luggageObject', 'uses' => 'LuggageController@addObjectToLuggage']);
 
-  	$app->put('/{idLuggage}/update', 'LuggageController@updateObjectFromLuggage');
+  	$app->put('/{idLuggage}/object/{idObject}/update', 'LuggageController@updateObjectFromLuggage');
 
   	$app->put('/{idLuggage}/object/{idObject}/present', 'LuggageController@objectIsPresentInLuggage');
+
+  	$app->delete('/{idLuggage}/object/{idObject}/delete', 'LuggageController@deleteObjectFromLuggage');
 
  	$app->get('/{idLuggage}/idMax', 'LuggageController@getIdObjectMaxFromLuggage');
 
