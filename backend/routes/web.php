@@ -158,3 +158,45 @@ $router->group(['prefix' => 'word'], function($app)
 	$app->delete('delete/{id}', 'WordController@deleteWord');
 
 });
+
+$router->group(['prefix' => 'transport'], function($app)
+{
+	$app->get('/all', 'TransportController@getAll');
+
+	$app->get('/{id}', 'TransportController@getTransport');
+
+	$app->post('/add', [ 'middleware' => 'transport', 'uses' => 'TransportController@createTransport' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'transport', 'uses' => 'TransportController@updateTransport' ]);
+
+	$app->delete('delete/{id}', 'TransportController@deleteTransport');
+
+});
+
+$router->group(['prefix' => 'publictransport'], function($app)
+{
+	$app->get('/all', 'PublicTransportController@getAll');
+
+	$app->get('/{id}', 'PublicTransportController@getPublicTransport');
+
+	$app->post('/add', [ 'middleware' => 'publictransport', 'uses' => 'PublicTransportController@createPublicTransport' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'publictransport', 'uses' => 'PublicTransportController@updatePublicTransport' ]);
+
+	$app->delete('delete/{id}', 'PublicTransportController@deletePublicTransport');
+
+});
+
+$router->group(['prefix' => 'activity'], function($app)
+{
+	$app->get('/all', 'ActivityController@getAll');
+
+	$app->get('/{id}', 'ActivityController@getActivity');
+
+	$app->post('/add', [ 'middleware' => 'activity', 'uses' => 'ActivityController@createActivity' ]);
+
+	$app->put('update/{id}', [ 'middleware' => 'activity', 'uses' => 'ActivityController@updateActivity' ]);
+
+	$app->delete('delete/{id}', 'ActivityController@deleteActivity');
+
+});
