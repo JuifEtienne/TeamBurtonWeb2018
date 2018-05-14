@@ -125,7 +125,7 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->get('/{idLuggage}/content', 'LuggageController@getAllObjectsFromLuggage');
 
- 	$app->post('/{idLuggage}/object/add', ['middleware' => 'luggageObject', 'uses' => 'LuggageController@addObjectToLuggage']);
+ 	$app->post('/{idLuggage}/object/{idObject}/add', ['middleware' => 'luggageObject', 'uses' => 'LuggageController@addObjectToLuggage']);
 
 	$app->put('/{idLuggage}/object/{idObject}/update', 'LuggageController@updateObjectFromLuggage');
 
