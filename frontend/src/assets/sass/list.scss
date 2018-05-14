@@ -1,0 +1,72 @@
+@import 'shared.scss';
+
+form {
+    position: relative;
+    box-sizing: border-box;
+    font-family: 'DejaVu';
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    
+    input {
+        border: none;
+        color: #fff;
+    }
+    
+    input[type=text] {
+        background-color: #dedede;
+        padding: 10px;
+        
+        font-size: 1.1em;
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
+        border: 1px solid transparent;
+        width: 40%;
+    }
+    
+    input[type=text]:focus {
+        outline: none;
+        background: none;
+        border-bottom: 1px solid #dedede;
+        color: #dedede;
+    }
+    
+    input[type=button] {
+        border-radius: 50px;
+        padding: 8px 12px;
+        
+        background-color: $purpleLight;
+    }
+    
+    span {
+        background-color: #dedede;
+        font-size: 1.1em;
+        padding: 10px;
+    }
+    
+    input[type=submit] {
+        border-radius: 6px;
+        padding: 7px 14px;
+        font-size: 1.5em;
+        background-color: $green;
+    }
+    
+}
+
+form::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  height: 1px;
+  background: #dedede;
+  width: 100%;
+  left: 0px;
+  top: 70px;
+}
+
+ul {
+    button {
+        border: none;
+    }
+}
