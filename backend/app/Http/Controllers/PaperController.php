@@ -57,10 +57,10 @@ class PaperController extends Controller
 
     }
 
-    public function addPaperToDestination(Request $request, $idDestination) {
+    public function addPaperToDestination(Request $request, $idDestination, $idPaper) {
 
         DB::table('need')->insert([
-            'idPaper' => $request->input('idPaper'),
+            'idPaper' => $idPaper,
             'idDestination' => $idDestination,
             'owner' => $request->input('owner'),
             'description' => $request->input('description'),
