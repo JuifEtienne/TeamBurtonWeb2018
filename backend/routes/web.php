@@ -63,6 +63,8 @@ $router->group(['prefix' => 'destination'], function($app)
 
  	$app->delete('/{idDestination}/activity/{idActivity}/delete', 'ActivityController@deleteActivityFromDestination');
 
+ 	$app->get('/{idDestination}/activities/sum', 'ActivityController@getPriceSumFromDestination');
+
 });
 
 $router->group(['prefix' => 'city'], function($app)
