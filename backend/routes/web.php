@@ -47,7 +47,7 @@ $router->group(['prefix' => 'destination'], function($app)
 
 	$app->get('/{idDestination}/papers', 'PaperController@getAllFromDestination');
 
-	$app->post('/{idDestination}/paper/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
+	$app->post('/{idDestination}/paper/{idPaper}/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
 
   $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
 
