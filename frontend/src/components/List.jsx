@@ -51,13 +51,13 @@ export default class List extends React.Component {
     
     printList(){
         return this.state.list.map(item =>{
-            return <li>
-                        <p>
-                            {item.name}
-                            <span>{item.number}</span>
-                            <button onClick={() => this.onChekChange(item.id)} >{item.checked ? 'v' : '!'}</button>
-                            <button onClick={() => this.deleteFromList(item.id)}>X</button>
-                        </p>
+            return <li className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
+                            <div>{item.name}</div>
+                            <div>{item.number}</div>
+                            <div>
+                                <button onClick={() => this.onChekChange(item.id)} ></button>
+                                <button className='delete' onClick={() => this.deleteFromList(item.id)}></button>
+                            </div>
                     </li> 
         })
     }
