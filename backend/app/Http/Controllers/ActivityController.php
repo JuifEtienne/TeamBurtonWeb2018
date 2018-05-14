@@ -90,7 +90,7 @@ class ActivityController extends Controller
     public function getPriceSumFromDestination($idDestination) {
 
         $activities = DB::table('activity')
-            ->select(DB::raw('sum(price)'))
+            ->select(DB::raw('sum(price) AS sum'))
             ->join('include', 'activity.id', '=', 'include.idActivity')
             ->where('idDestination', '=', $idDestination)
             ->get();
