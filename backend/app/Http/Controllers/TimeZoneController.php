@@ -34,5 +34,5 @@ class TimeZoneController extends Controller
         return response()->json(['localHour' => $hour]);
         
     }
-   
+
 }

@@ -27,9 +27,9 @@ $router->group(['prefix' => 'journey'], function($app)
 
 	$app->delete('{id}/delete', 'JourneyController@deleteJourney');
 
-  /* Destinations */
+  	/* Destinations */
 
-  $app->get('/{id}/destinations', 'DestinationController@getAllFromJourney');
+  	$app->get('/{id}/destinations', 'DestinationController@getAllFromJourney');
 
 });
 
@@ -49,7 +49,7 @@ $router->group(['prefix' => 'destination'], function($app)
 
 	$app->post('/{idDestination}/paper/{idPaper}/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
 
-  $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
+    $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
 
  	$app->delete('/{idDestination}/paper/{idPaper}/delete', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@deletePaperFromDestination']);
 
@@ -75,13 +75,13 @@ $router->group(['prefix' => 'country'], function($app)
 
 	$app->get('/{id}', 'CountryController@getCountry');
 
-  /* Cities */
+  	/* Cities */
 
 	$app->get('/{id}/cities', 'CityController@getAllFromCountry');
 
-  /* Currency */
+  	/* Currency */
 
-  $app->get('/{idCountry}/currency', 'CurrencyController@getCurrencyFromCountry');
+  	$app->get('/{idCountry}/currency', 'CurrencyController@getCurrencyFromCountry');
 
 });
 
@@ -121,7 +121,7 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->delete('/{idLuggage}/delete', 'LuggageController@deleteLuggage');
 
-  /* Objects */
+ 	/* Objects */
 
 	$app->get('/{idLuggage}/content', 'LuggageController@getAllObjectsFromLuggage');
 
@@ -129,7 +129,7 @@ $router->group(['prefix' => 'luggage'], function($app)
 
 	$app->put('/{idLuggage}/object/{idObject}/update', 'LuggageController@updateObjectFromLuggage');
 
-  $app->put('/{idLuggage}/object/{idObject}/present', 'LuggageController@objectIsPresentInLuggage');
+  	$app->put('/{idLuggage}/object/{idObject}/present', 'LuggageController@objectIsPresentInLuggage');
 
  	$app->delete('/{idLuggage}/object/{idObject}/delete', 'LuggageController@deleteObjectFromLuggage');
 
