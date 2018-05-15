@@ -14,11 +14,13 @@ export default class Menu extends React.Component {
         axios.get('/journey/all')
         .then(response => {
             this.setState({ voyages: response.data })
+            console.log('here')
         })
         .catch(function (error) {
         console.log(error)
         })
     }
+
     
   render() {
     return (
@@ -28,14 +30,14 @@ export default class Menu extends React.Component {
             <nav className='nav' role='navigation'>
                 <ul className='menu'>
                     <li>
-                        <a>
+                        <a onClick={() => this.props.onMenuItemClick(0)}>
                             <div>icone</div>
                             <div>Home</div>
                         </a>
                     </li>
                     {
                         this.state.voyages.map((item) =>
-                            <li><a>
+                            <li><a onClick={() => this.props.onMenuItemClick(item.id)}>
                                 <div>icone</div>
                                 <div>{item.name}</div>
                             </a></li>
