@@ -46,6 +46,8 @@ $router->group(['prefix' => 'destination'], function($app)
 
 	$app->post('/{idDestination}/paper/{idPaper}/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
 
+	$app->post('/{idDestination}/paper/add', ['middleware' => 'destinationPaperCreateAndAdd', 'uses' => 'PaperController@createPaperAndAddToDestination']);
+
     $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
 	
  	$app->delete('/{idDestination}/paper/{idPaper}/delete', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@deletePaperFromDestination']);

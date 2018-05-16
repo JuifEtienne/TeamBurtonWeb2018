@@ -71,6 +71,7 @@ $app->routeMiddleware([
     'publictransport' => App\Http\Middleware\PublicTransportMiddleware::class,
     'activity' => App\Http\Middleware\ActivityMiddleware::class,
     'destinationPaper' => App\Http\Middleware\DestinationPaperMiddleware::class,
+    'destinationPaperCreateAndAdd' => App\Http\Middleware\DestinationPaperCreateAndAddMiddleware::class,
     'word' => App\Http\Middleware\WordMiddleware::class
 ]);
 

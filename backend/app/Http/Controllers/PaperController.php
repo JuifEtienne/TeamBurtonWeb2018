@@ -27,7 +27,13 @@ class PaperController extends Controller
 
     public function createPaper(Request $request) {
 
-        $paper = Paper::create($request->all());
+        if (DB::table('paper')->where('name', $request->input('name'))->exists() == false) {
+            $paper = DB::table('paper')->insert([
+                'name' => ucfirst(strtolower($request->input('name')))
+            ]);
+        } else {
+            return response()->json('Paper already exists.');
+        }
 
         return response()->json('Added successfully.');
 
@@ -36,7 +42,7 @@ class PaperController extends Controller
     public function updatePaper(Request $request, $idPaper) {
 
         $paper = Paper::find($idPaper);
-        $paper->name = $request->input('name');
+        $paper->name = ucfirst(strtolower($request->input('name')));
         $paper->save();
 
         return response()->json('Updated successfully.');
@@ -62,7 +68,7 @@ class PaperController extends Controller
         DB::table('need')->insert([
             'idPaper' => $idPaper,
             'idDestination' => $idDestination,
-            'owner' => $request->input('owner'),
+            'owner' => ucfirst(strtolower($request->input('owner'))),
             'description' => $request->input('description'),
             'valid' => $request->input('valid')
         ]);
@@ -76,10 +82,10 @@ class PaperController extends Controller
         DB::table('need')
             ->where('idDestination', '=', $idDestination)
             ->where('idPaper', '=', $idPaper)
-            ->where('owner', '=', $request->input('owner'))
+            ->where('owner', '=', ucfirst(strtolower($request->input('owner'))))
             ->update([
                 'valid' => $request->input('valid'),
-                'owner' => $request->input('newOwner'),
+                'owner' => ucfirst(strtolower($request->input('newOwner'))),
                 'description' => $request->input('description')
             ]);
 
@@ -96,6 +102,29 @@ class PaperController extends Controller
             ->delete();
 
         return response()->json('Removed successfully.');
+
+    }
+
+    public function createPaperAndAddToDestination(Request $request, $idDestination) {
+        $request->all()["name"] = ucfirst(strtolower($request->all()["name"]));
+        
+        if (DB::table('paper')->where('name', $request->input('name'))->exists() == false) {
+            $paper = DB::table('paper')->insert([
+                'name' => ucfirst(strtolower($request->input('name')))
+            ]);
+        }
+        $idPaper = DB::table('paper')->select('id')->where('name', $request->input('name'))->first();
+
+
+        DB::table('need')->insert([
+            'idPaper' => $idPaper->id,
+            'idDestination' => $idDestination,
+            'valid' => $request->input('valid'),
+            'owner' => ucfirst(strtolower($request->input('owner'))),
+            'description' => $request->input('description')
+        ]);
+
+        return response()->json('Added successfully. ');
 
     }
 
