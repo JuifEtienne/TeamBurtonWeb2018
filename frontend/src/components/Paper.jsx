@@ -1,13 +1,11 @@
 import React from 'react';
 import axios from 'axios'
-import styles from '../assets/sass/list.scss'
 
 export default class List extends React.Component {
 	constructor(props){
         super(props)
         
         this.state = {
-            type: props.type,
         	currentNum: 0,
         	currentName: "",
             maxID: 0,
@@ -16,25 +14,13 @@ export default class List extends React.Component {
     }
     
     componentDidMount(){
-        if(this.state.type === 'luggage'){
-            axios.get('/luggage/1/content')
-                .then(response => {
-                this.setState({ list: response.data })
-                console.log(response.data)
-            })
-                .catch(function (error) {
-                console.log(error)
-            })
-        }
-        else{
-            axios.get('/paper/all')
-                .then(response => {
-                this.setState({ list: response.data })
-            })
-                .catch(function (error) {
-                console.log(error)
-            })
-        }
+        axios.get('/paper/all')
+            .then(response => {
+            this.setState({ list: response.data })
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
     }
 
     addToList(event){
@@ -42,24 +28,14 @@ export default class List extends React.Component {
         
         var tempObj = {id: this.state.maxID +1, name: this.state.currentName, number: this.state.currentNum, checked: false}
         
-        if(this.state.type === 'luggage'){
-            axios.post('/lugagge/1/add', tempObj)
-                .then(response => {
-                console.log(response)
-            })
-                .catch(function (error) {
-                console.log(error)
-            })
-        }
-        else{
-            axios.post('/paper/add', tempObj)
-                .then(response => {
-                console.log(response)
-            })
-                .catch(function (error) {
-                console.log(error)
-            })
-        }
+
+        axios.post('/paper/add', tempObj)
+            .then(response => {
+            console.log(response)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
         
 		//this.setState({list: [...this.state.list, tempObj] });
 
@@ -77,24 +53,7 @@ export default class List extends React.Component {
         console.log(error)
         })
         
-        if(this.state.type === 'luggage'){
-            axios.delete('/luggage/delete/idgive/from/1')
-                .then(response => {
-                console.log(response)
-            })
-                .catch(function (error) {
-                console.log(error)
-            })
-        }
-        //else{
-            //axios.post('/paper/add', tempObj)
-               // .then(response => {
-               //  console.log(response)
-            // })
-            //    .catch(function (error) {
-             //   console.log(error)
-           // })
-       // }
+       
         
         //this.setState(prevState => ({list: prevState.list.filter(i => i.id !== idgive)}))
     }
@@ -130,15 +89,14 @@ export default class List extends React.Component {
     
     printList(){
         return this.state.list.map(item =>{
-            return <li className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
-                            <div>{item.name}</div>
-                            <div>{item.number}</div>
-                            <div>
-                                <button onClick={() => this.onChekChange(item.id)} ></button>
-                                <button className='delete' onClick={() => this.deleteFromList(item.id)}></button>
-                            </div>
-                    </li> 
-        })
+                                  return <li>
+                                      <p>
+                                        {item.name}
+                                        <span>{item.number}</span>
+                                        <button onClick={() => this.onChekChange(item.id)} >{item.checked ? 'v' : '!'}</button>
+                                        <button onClick={() => this.deleteFromList(item.id)}>X</button>
+                                      </p>
+                                  </li> })
     }
 
   render() {
