@@ -8,6 +8,7 @@ export default class Panel extends React.Component {
   constructor(props){
       super(props)
       this.state = {
+        town: 'paris',
         forecast : null
       }
 
@@ -17,7 +18,7 @@ export default class Panel extends React.Component {
   }
 
   componentDidMount(){
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?q=paris&units=metric&APPID=cf2d03b36ba7b9f74adddecc430b584a')
+        axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.state.town+'&units=metric&APPID=cf2d03b36ba7b9f74adddecc430b584a')
         .then(response => {
           //console.log(response.data);
           this.setState({ forecast: response.data })
