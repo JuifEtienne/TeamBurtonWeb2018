@@ -95,9 +95,10 @@ export default class Luggage extends React.Component {
 	}
     
     deleteFromList(idgive){
-        axios.delete('/luggage/delete/idgive/from/1')
+        axios.delete('/luggage/'+ this.props.idPage +'/object/'+ idgive +'/delete')
         .then(response => {
             console.log(response)
+            this.updateLuggage();
         })
         .catch(function (error) {
         console.log(error)
@@ -120,19 +121,29 @@ export default class Luggage extends React.Component {
 	}
     
     onChekChange(id){
-        var newElmt = this.state.luggage.find(i => i.id === id);
-        var tempObject = {id: newElmt.id, name: newElmt.name, quantity: newElmt.number, present: !newElmt.checked};
-        var arr1 = this.state.luggage.filter(i => i.id < id);
-        var arr2 = this.state.luggage.filter(i => i.id > id);
-        this.setState({luggage: [...arr1, tempObject, ...arr2] });
+       axios.get('/luggage/'+ this.props.idPage +'/content')
+            .then(response => {
+           var quantity = response.data.find(i=> i.id === id).quantity;
+           var pres = response.data.find(i=> i.id === id).present;
+           axios.put('/luggage/'+ this.props.idPage +'/object/'+ id +'/update', {id: id, quantity: quantity, present: 1-pres})
+                .then(response => {
+                    console.log(response)
+                    this.updateLuggage();
+                })
+                .catch(function (error) {
+                console.log(error)
+                })
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
         
-        axios.put('/luggage/'+ this.props.idPage +'/update')
-        .then(response => {
-            console.log(response)
-        })
-        .catch(function (error) {
-        console.log(error)
-        })
+        
+        
+        
+        
+        
+        
     } 
     
     printList(){
@@ -141,7 +152,7 @@ export default class Luggage extends React.Component {
                                       <p>
                                         {item.name}
                                         <span>{item.quantity}</span>
-                                        <button onClick={() => this.onChekChange(item.id)} >{item.present ? 'v' : '!'}</button>
+                                        <button onClick={() => this.onChekChange(item.id)} >{item.present ? '!' : 'v'}</button>
                                         <button onClick={() => this.deleteFromList(item.id)}>X</button>
                                       </p>
                                   </li> })
