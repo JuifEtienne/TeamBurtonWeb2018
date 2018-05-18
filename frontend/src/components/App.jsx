@@ -9,23 +9,28 @@ export default class App extends React.Component {
         super(props)
         
         this.state = {
-            currentPage: 0
+            currentPage: 0,
+            numberOfJourney: 0
         };
         
         this.changeCurrent = this.changeCurrent.bind(this)
         this.currentElement = this.currentElement.bind(this)
+        this.increaseJourney = this.increaseJourney.bind(this)
     }
     
     changeCurrent(i){
         this.setState({currentPage: i});
     }
     
+    increaseJourney(){
+        this.setState({numberOfJourney: ++this.state.numberOfJourney});
+    }
+    
     currentElement(id){
         if(id === 0){
-            return <Home />
+            return <Home incrementJourney={this.increaseJourney}/>
         }
         else{
-            console.log(this.state.currentPage)
             return <Dashboard idPage={this.state.currentPage}/>
         }
     }
@@ -35,7 +40,7 @@ export default class App extends React.Component {
     return (
      <div>
         <div id='menu'>   
-            <Menu onMenuItemClick={this.changeCurrent} />
+            <Menu onMenuItemClick={this.changeCurrent} numberOfJourney={this.state.numberOfJourney} />
         </div>
         <div id='dashboard'>
             {//<Dashboard idPage={this.currentPage}/> 

@@ -24,37 +24,74 @@ export default class Luggage extends React.Component {
         })
     }
     
-    static getDerivedStateFromProps(nextProps, prevState){
-        console.log('here')
-        axios.get('/luggage/'+ this.nextProps.idPage +'/content')
+    updateLuggage(){
+        axios.get('/luggage/'+ this.props.idPage +'/content')
             .then(response => {
-            return {luggage: response.data}
+            this.setState({ luggage: response.data })
+            console.log(response.data)
         })
             .catch(function (error) {
             console.log(error)
-            return null
         })
     }
-
-    addToList(event){
-    	event.preventDefault();
+    
+   componentWillReceiveProps(nextProps){
+       axios.get('/luggage/'+ nextProps.idPage +'/content')
+            .then(response => {
+            this.setState({ luggage: response.data })
+            console.log(response.data)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
+   }
+    
+    addObject(event){
+        event.preventDefault();
         
-        var tempObj = {id: this.state.maxID +1, name: this.state.currentName, quantity: this.state.currentNum, present: 0}
+        var newObj = {name: this.state.currentName}
         
-        
-        axios.post('/luggage/'+ this.props.idPage +'/object/add', tempObj)
+        axios.post('/object/add', newObj)
             .then(response => {
             console.log(response)
+            this.findObjectId(event, this.state.currentName)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
+        
+        this.state.maxID++;
+    }
+    
+    findObjectId(event, nameCheck){
+        axios.get('/object/all')
+            .then(response => {
+            console.log(response.data)
+            this.addToList(event, response.data.find(i => i.name === nameCheck).id)          
+        })
+            .catch(function (error) {
+            console.log(error)
+            
+        })
+    }
+    
+    
+    addToList(event, id){
+        event.preventDefault();
+        var tempLug = {quantity: this.state.currentNum, present: 0}
+
+        axios.post('/luggage/'+ this.props.idPage +'/object/'+ id +'/add', tempLug)
+            .then(response => {
+            console.log(response)
+            this.state.currentName = "";
+            this.state.currentNum = 0;
+            this.updateLuggage();
         })
             .catch(function (error) {
             console.log(error)
         })
         
 		//this.setState({list: [...this.state.list, tempObj] });
-
-		this.state.currentNum = 0;
-		this.state.currentName = "";
-        this.state.maxID++;
 	}
     
     deleteFromList(idgive){
@@ -113,7 +150,7 @@ export default class Luggage extends React.Component {
   render() {
     return (
      <div>
-     	<form className="list" onSubmit={(e) => this.addToList(e)} >
+     	<form className="list" onSubmit={(e) => this.addObject(e)} >
 	        <input type="text" name="name" value={this.state.currentName} onChange={(e) => this.setCurrentName(e)}/>
 
 	        <input type="button" value="-" name="less" onClick={() => this.decreaseNum()}  disabled={this.state.currentNum == 0 ? 'disabled' : null}/>

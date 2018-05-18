@@ -14,12 +14,21 @@ export default class Menu extends React.Component {
         axios.get('/journey/all')
         .then(response => {
             this.setState({ voyages: response.data })
-            console.log('here')
         })
         .catch(function (error) {
         console.log(error)
         })
     }
+    
+     componentWillReceiveProps(nextProps){
+         axios.get('/journey/all')
+        .then(response => {
+            this.setState({ voyages: response.data })
+        })
+        .catch(function (error) {
+        console.log(error)
+        })
+   }
 
     
   render() {
