@@ -55,8 +55,8 @@ class LuggageController extends Controller
     public function getAllObjectsFromLuggage($idLuggage) {
 
         $objects = DB::table('object')
-            ->select('name', 'present', 'quantity', 'object.idObject', 'idLuggage', 'idCategory')
-            ->join('contain', 'object.idObject', '=', 'contain.idObject')
+            ->select('name', 'present', 'quantity', 'object.id', 'idLuggage', 'idCategory')
+            ->join('contain', 'object.id', '=', 'contain.idObject')
             ->where('idLuggage', '=', $idLuggage)
             ->orderBy('idCategory')
             ->orderBy('name')
@@ -124,6 +124,29 @@ class LuggageController extends Controller
             ->delete();
 
         return response()->json('Removed successfully.');
+
+    }
+
+    public function createObjectAndAddToLuggage(Request $request, $idLuggage) {
+
+        $request->all()["name"] = ucfirst(strtolower($request->all()["name"]));
+        
+        if (DB::table('object')->where('name', $request->input('name'))->exists() == false) {
+            $object = DB::table('object')->insert([
+                'name' => ucfirst(strtolower($request->input('name')))
+            ]);
+        }
+
+        $idObject = DB::table('object')->select('id')->where('name', $request->input('name'))->first();
+
+        DB::table('contain')->insert([
+            'idObject' => $idObject->id,
+            'idLuggage' => $idLuggage,
+            'present' => $request->input('present'),
+            'quantity' => $request->input('quantity')
+        ]);
+
+        return response()->json('Added successfully. ');
 
     }
 

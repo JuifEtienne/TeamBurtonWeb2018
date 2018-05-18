@@ -12,6 +12,7 @@ class DestinationPaperCreateAndAddMiddleware
       if ($request->input('name') == NULL) {
         	return response( 'Le champ "name" est manquant' , 403 );
       }
+
       if ($request->input('owner') == NULL) {
         	return response( 'Le champ "owner" est manquant' , 403 );
       }

@@ -52,8 +52,8 @@ class PaperController extends Controller
     public function getAllFromDestination($idDestination) {
 
         $papers = DB::table('paper')
-            ->select('paper.idPaper', 'name', 'owner', 'valid', 'description')
-            ->join('need', 'paper.idPaper', '=', 'need.idPaper')
+            ->select('paper.id', 'name', 'owner', 'valid', 'description')
+            ->join('need', 'paper.id', '=', 'need.idPaper')
             ->where('idDestination', '=', $idDestination)
             ->orderBy('name')
             ->orderBy('owner')
@@ -106,6 +106,7 @@ class PaperController extends Controller
     }
 
     public function createPaperAndAddToDestination(Request $request, $idDestination) {
+
         $request->all()["name"] = ucfirst(strtolower($request->all()["name"]));
         
         if (DB::table('paper')->where('name', $request->input('name'))->exists() == false) {
@@ -113,8 +114,8 @@ class PaperController extends Controller
                 'name' => ucfirst(strtolower($request->input('name')))
             ]);
         }
-        $idPaper = DB::table('paper')->select('id')->where('name', $request->input('name'))->first();
 
+        $idPaper = DB::table('paper')->select('id')->where('name', $request->input('name'))->first();
 
         DB::table('need')->insert([
             'idPaper' => $idPaper->id,
