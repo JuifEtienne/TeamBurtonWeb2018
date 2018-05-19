@@ -43,8 +43,6 @@ export default class App extends React.Component {
             <Menu onMenuItemClick={this.changeCurrent} numberOfJourney={this.state.numberOfJourney} />
         </div>
         <div id='dashboard'>
-            {//<Dashboard idPage={this.currentPage}/> 
-        }
             {this.currentElement(this.state.currentPage)}
         </div>
       </div>);

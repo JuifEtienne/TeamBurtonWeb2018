@@ -48,10 +48,9 @@ export default class Home extends React.Component {
     
   render() {
     return (
-     <div>
-        <h1>Hello World</h1>
-        <p> Welcome to Journeo</p>
-        <Panel title={'Nouveau voyage'}>   
+     <div className='container'>
+        <h1>Welcome to Journeo</h1>
+        <Panel title={'New trip'}>   
             <div>
      	<form className="list" onSubmit={(e) => this.addToList(e)} >
 	        <input type="text" name="name" value={this.state.currentName} onChange={(e) => this.setCurrentName(e)}/>

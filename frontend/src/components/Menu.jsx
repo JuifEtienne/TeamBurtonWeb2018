@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../assets/sass/menu.scss'
 import axios from 'axios'
+import fonts from '../assets/themify-icons.css'
 
 export default class Menu extends React.Component {
     constructor(props){
@@ -40,14 +41,14 @@ export default class Menu extends React.Component {
                 <ul className='menu'>
                     <li>
                         <a onClick={() => this.props.onMenuItemClick(0)}>
-                            <div>icone</div>
+                            <div className='ti-home'></div>
                             <div>Home</div>
                         </a>
                     </li>
                     {
                         this.state.voyages.map((item) =>
                             <li><a onClick={() => this.props.onMenuItemClick(item.id)}>
-                                <div>icone</div>
+                                <div className="ti-map-alt"></div>
                                 <div>{item.name}</div>
                             </a></li>
                         )

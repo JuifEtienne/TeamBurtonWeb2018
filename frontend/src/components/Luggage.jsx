@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'
+import styles from '../assets/sass/list.scss'
 
 export default class Luggage extends React.Component {
 	constructor(props){
@@ -19,9 +20,7 @@ export default class Luggage extends React.Component {
             this.setState({ luggage: response.data })
             console.log(response.data)
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
     }
     
     updateLuggage(){
@@ -30,9 +29,7 @@ export default class Luggage extends React.Component {
             this.setState({ luggage: response.data })
             console.log(response.data)
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
     }
     
    componentWillReceiveProps(nextProps){
@@ -41,24 +38,20 @@ export default class Luggage extends React.Component {
             this.setState({ luggage: response.data })
             console.log(response.data)
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
    }
     
     addObject(event){
         event.preventDefault();
         
-        var newObj = {name: this.state.currentName}
+        const newObj = {name: this.state.currentName}
         
         axios.post('/object/add', newObj)
             .then(response => {
             console.log(response)
             this.findObjectId(event, this.state.currentName)
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
         
         this.state.maxID++;
     }
@@ -69,16 +62,13 @@ export default class Luggage extends React.Component {
             console.log(response.data)
             this.addToList(event, response.data.find(i => i.name === nameCheck).id)          
         })
-            .catch(function (error) {
-            console.log(error)
-            
-        })
+            .catch(error => {console.log(error)})
     }
     
     
     addToList(event, id){
         event.preventDefault();
-        var tempLug = {quantity: this.state.currentNum, present: 0}
+        const tempLug = {quantity: this.state.currentNum, present: 0}
 
         axios.post('/luggage/'+ this.props.idPage +'/object/'+ id +'/add', tempLug)
             .then(response => {
@@ -87,9 +77,7 @@ export default class Luggage extends React.Component {
             this.state.currentNum = 0;
             this.updateLuggage();
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
         
 		//this.setState({list: [...this.state.list, tempObj] });
 	}
@@ -100,9 +88,7 @@ export default class Luggage extends React.Component {
             console.log(response)
             this.updateLuggage();
         })
-        .catch(function (error) {
-        console.log(error)
-        })
+        .catch(error => {console.log(error)})
         
         //this.setState(prevState => ({list: prevState.list.filter(i => i.id !== idgive)}))
     }
@@ -123,39 +109,29 @@ export default class Luggage extends React.Component {
     onChekChange(id){
        axios.get('/luggage/'+ this.props.idPage +'/content')
             .then(response => {
-           var quantity = response.data.find(i=> i.id === id).quantity;
-           var pres = response.data.find(i=> i.id === id).present;
+           const quantity = response.data.find(i=> i.id === id).quantity;
+           const pres = response.data.find(i=> i.id === id).present;
            axios.put('/luggage/'+ this.props.idPage +'/object/'+ id +'/update', {id: id, quantity: quantity, present: 1-pres})
                 .then(response => {
                     console.log(response)
                     this.updateLuggage();
                 })
-                .catch(function (error) {
-                console.log(error)
-                })
+                .catch(error => {console.log(error)})
         })
-            .catch(function (error) {
-            console.log(error)
-        })
-        
-        
-        
-        
-        
-        
-        
+            .catch(error => {console.log(error)})
     } 
     
     printList(){
         return this.state.luggage.map(item =>{
-                                  return <li>
-                                      <p>
-                                        {item.name}
-                                        <span>{item.quantity}</span>
-                                        <button onClick={() => this.onChekChange(item.id)} >{item.present ? '!' : 'v'}</button>
-                                        <button onClick={() => this.deleteFromList(item.id)}>X</button>
-                                      </p>
-                                  </li> })
+            return <li className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
+                        <div>{item.name}</div>
+                        <div>{item.quantity}</div>
+                        <div>
+                            <button onClick={() => this.onChekChange(item.id)} ></button>
+                            <button className='delete' onClick={() => this.deleteFromList(item.id)}></button>
+                        </div>
+                    </li>
+        })
     }
 
   render() {

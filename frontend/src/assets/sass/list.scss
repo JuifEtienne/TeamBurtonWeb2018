@@ -1,6 +1,6 @@
 @import 'shared.scss';
 
-form {
+.list {
     position: relative;
     box-sizing: border-box;
     font-family: 'DejaVu';
@@ -58,7 +58,7 @@ form {
     
 }
 
-form::after {
+.list::after {
   content: " ";
   display: block;
   position: absolute;
