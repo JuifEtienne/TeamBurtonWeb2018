@@ -1,115 +1,136 @@
 import React from 'react';
 import axios from 'axios'
 
-export default class List extends React.Component {
+export default class Paper extends React.Component {
 	constructor(props){
         super(props)
         
         this.state = {
-        	currentNum: 0,
         	currentName: "",
             maxID: 0,
-            list: []
+            paper: []
         };
     }
     
     componentDidMount(){
-        axios.get('/paper/all')
+        axios.get('/destination/'+ this.props.idPage +'/papers')
             .then(response => {
-            this.setState({ list: response.data })
+            this.setState({ paper: response.data })
+            console.log(response.data)
         })
-            .catch(function (error) {
-            console.log(error)
-        })
+            .catch(error => {console.log(error)})
     }
-
-    addToList(event){
-    	event.preventDefault();
+    
+    updatePaper(){
+        axios.get('/destination/'+ this.props.idPage +'/papers')
+            .then(response => {
+            this.setState({ paper: response.data })
+            console.log(response.data)
+        })
+            .catch(error => {console.log(error)})
+    }
+    
+   componentWillReceiveProps(nextProps){
+       axios.get('/destination/'+ nextProps.idPage +'/papers')
+            .then(response => {
+            this.setState({ paper: response.data })
+            console.log(response.data)
+        })
+            .catch(error => {console.log(error)})
+   }
+    
+    addPaper(event){
+        event.preventDefault();
         
-        var tempObj = {id: this.state.maxID +1, name: this.state.currentName, number: this.state.currentNum, checked: false}
+        const newObj = {name: this.state.currentName}
         
-
-        axios.post('/paper/add', tempObj)
+        axios.post('/paper/add', newObj)
             .then(response => {
             console.log(response)
+            this.findObjectId(event, this.state.currentName)
         })
-            .catch(function (error) {
-            console.log(error)
+            .catch(error => {console.log(error)})
+        
+        this.state.maxID++;
+    }
+    
+    findObjectId(event, nameCheck){
+        axios.get('/paper/all')
+            .then(response => {
+            console.log(response.data)
+            this.addToList(event, response.data.find(i => i.name === nameCheck).id)          
         })
+            .catch(error => {console.log(error)})
+    }
+    
+    
+    addToList(event, id){
+        event.preventDefault();
+        const tempPap = {valid: 0, owner: 'M Nobody', description: "Null"}
+
+        axios.post('/destination/'+ this.props.idPage +'/paper/'+ id +'/add', tempPap)
+            .then(response => {
+            console.log(response)
+            this.state.currentName = "";
+            this.updatePaper();
+        })
+            .catch(error => {console.log(error)})
         
 		//this.setState({list: [...this.state.list, tempObj] });
-
-		this.state.currentNum = 0;
-		this.state.currentName = "";
-        this.state.maxID++;
 	}
     
     deleteFromList(idgive){
-        axios.delete('/luggage/delete/idgive/from/1')
+
+        axios.delete('/destination/'+ this.props.idPage +'/paper/'+ idgive +'/delete')
         .then(response => {
             console.log(response)
+            this.updatePaper();
         })
-        .catch(function (error) {
-        console.log(error)
-        })
-        
-       
+        .catch(error => {console.log(error)})
         
         //this.setState(prevState => ({list: prevState.list.filter(i => i.id !== idgive)}))
     }
-
-	decreaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum-1}));
-
-	}
-
-	increaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum+1}));
-	}
 
 	setCurrentName(event){
 		this.setState({currentName: event.target.value});
 	}
     
     onChekChange(id){
-        var newElmt = this.state.list.find(i => i.id === id);
-        var tempObject = {id: newElmt.id, name: newElmt.name, number: newElmt.number, checked: !newElmt.checked};
-        var arr1 = this.state.list.filter(i => i.id < id);
-        var arr2 = this.state.list.filter(i => i.id > id);
-        this.setState({list: [...arr1, tempObject, ...arr2] });
-        
-        axios.put('/luggage/1/update')
-        .then(response => {
-            console.log(response)
+       axios.get('/destination/'+ this.props.idPage +'/papers')
+            .then(response => {
+               const pres = response.data.find(i=> i.id === id).valid
+               console.log(1 - pres)
+               axios.put('/destination/'+ this.props.idPage +'/paper/'+ id +'/update', {valid: 1 - pres, owner: 'M Nobody', newOwner: 'M Nobody', description: "Null"})
+                .then(response => {
+                    console.log(response)
+                   console.log('HERE')
+                    this.updatePaper();
+                })
+                .catch(error => {console.log(error)})
         })
-        .catch(function (error) {
-        console.log(error)
-        })
+            .catch(error => {console.log(error)})
     } 
     
     printList(){
-        return this.state.list.map(item =>{
-                                  return <li>
-                                      <p>
-                                        {item.name}
-                                        <span>{item.number}</span>
-                                        <button onClick={() => this.onChekChange(item.id)} >{item.checked ? 'v' : '!'}</button>
-                                        <button onClick={() => this.deleteFromList(item.id)}>X</button>
-                                      </p>
-                                  </li> })
+        return this.state.paper.map(item =>{
+            return <li className={'item ' + (item.valid ? 'unchecked' : 'checked')}>
+                        <div>{item.name}</div>
+                        <div>{item.quantity}</div>
+                        <div>
+                            <button onClick={() => this.onChekChange(item.id)} ></button>
+                            <button className='delete' onClick={() => this.deleteFromList(item.id)}></button>
+                        </div>
+                    </li>
+        })
     }
 
   render() {
     return (
      <div>
-     	<form className="list" onSubmit={(e) => this.addToList(e)} >
+     	<form className="list" onSubmit={(e) => this.addObject(e)} >
 	        <input type="text" name="name" value={this.state.currentName} onChange={(e) => this.setCurrentName(e)}/>
 
-	        <input type="button" value="-" name="less" onClick={() => this.decreaseNum()}  disabled={this.state.currentNum == 0 ? 'disabled' : null}/>
-	        <span>{this.state.currentNum}</span>
-	        <input type="button" value="+" name="more" onClick={() => this.increaseNum()} />
-
-	        <input type="submit" value="+" disabled={this.state.currentNum === 0 || this.state.currentName === "" ? 'disabled' : null} />
+	        <input type="submit" value="+" disabled={this.state.currentName === "" ? 'disabled' : null} />
         </form>
 
         <ul>

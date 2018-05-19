@@ -37,6 +37,15 @@ export default class Home extends React.Component {
             .catch(function (error) {
             console.log(error)
         })
+        
+        var newDest = {arrivalDate:"2018-04-10",departureDate:"2018-04-18",idJourney:1,idCity:1}
+        axios.post('/destination/add', newDest)
+            .then(response => {
+            console.log(response)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
 
         
 		this.state.currentName = "";

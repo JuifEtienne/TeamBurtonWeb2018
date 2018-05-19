@@ -3,6 +3,7 @@ import Panel from './Panel.jsx'
 import styles from '../assets/sass/dashboard.scss';
 
 import List from './List.jsx'
+import Paper from './Paper.jsx'
 import Luggage from './Luggage.jsx'
 import Weather from './Weather.jsx'
 import Destination from './Destination.jsx'
@@ -12,7 +13,7 @@ export default class Dashboard extends React.Component {
   render() {
     return (
         <div>
-        <Destination />
+        <Destination idPage={this.props.idPage}/>
         <div className='panel-container'>
          <div className='container'>
 
@@ -25,7 +26,7 @@ export default class Dashboard extends React.Component {
 
              <article className=''>
             <Panel title={'Paper copies'}>
-              <List idPage={this.props.idPage} type={'paper'} />
+              <Paper idPage={this.props.idPage} type={'paper'} />
             </Panel>
             </article>
 

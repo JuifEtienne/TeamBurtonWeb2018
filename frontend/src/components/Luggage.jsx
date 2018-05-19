@@ -123,7 +123,7 @@ export default class Luggage extends React.Component {
     
     printList(){
         return this.state.luggage.map(item =>{
-            return <li className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
+            return <li className={'item ' + (item.present ? 'unchecked' : 'checked')}>
                         <div>{item.name}</div>
                         <div>{item.quantity}</div>
                         <div>
