@@ -44,13 +44,13 @@ $router->group(['prefix' => 'destination'], function($app)
 	
 	$app->get('/{idDestination}/papers', 'PaperController@getAllFromDestination');
 
-	$app->post('/{idDestination}/paper/{idPaper}/add', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@addPaperToDestination']);
+	$app->post('/{idDestination}/paper/{idPaper}/add', 'PaperController@addPaperToDestination');
 
 	$app->post('/{idDestination}/paper/add', ['middleware' => 'destinationPaperCreateAndAdd', 'uses' => 'PaperController@createPaperAndAddToDestination']);
 
-    $app->put('/{idDestination}/paper/{idPaper}/update', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@updatePaperFromDestination']);
+    $app->put('/{idDestination}/paper/{idPaper}/update', 'PaperController@updatePaperFromDestination');
 	
- 	$app->delete('/{idDestination}/paper/{idPaper}/delete', ['middleware' => 'destinationPaper', 'uses' => 'PaperController@deletePaperFromDestination']);
+ 	$app->delete('/{idDestination}/paper/{idPaper}/delete', 'PaperController@deletePaperFromDestination');
 
  	// Activities
 

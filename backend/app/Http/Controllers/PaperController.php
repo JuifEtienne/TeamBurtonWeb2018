@@ -52,11 +52,10 @@ class PaperController extends Controller
     public function getAllFromDestination($idDestination) {
 
         $papers = DB::table('paper')
-            ->select('paper.id', 'name', 'owner', 'valid', 'description')
+            ->select('paper.id', 'name', 'valid', 'description')
             ->join('need', 'paper.id', '=', 'need.idPaper')
             ->where('idDestination', '=', $idDestination)
             ->orderBy('name')
-            ->orderBy('owner')
             ->get();
 
         return response()->json($papers);
@@ -68,7 +67,6 @@ class PaperController extends Controller
         DB::table('need')->insert([
             'idPaper' => $idPaper,
             'idDestination' => $idDestination,
-            'owner' => ucfirst(strtolower($request->input('owner'))),
             'description' => $request->input('description'),
             'valid' => $request->input('valid')
         ]);
@@ -82,10 +80,8 @@ class PaperController extends Controller
         DB::table('need')
             ->where('idDestination', '=', $idDestination)
             ->where('idPaper', '=', $idPaper)
-            ->where('owner', '=', ucfirst(strtolower($request->input('owner'))))
             ->update([
                 'valid' => $request->input('valid'),
-                'owner' => ucfirst(strtolower($request->input('newOwner'))),
                 'description' => $request->input('description')
             ]);
 
@@ -93,12 +89,11 @@ class PaperController extends Controller
 
     }
 
-    public function deletePaperFromDestination(Request $request, $idDestination, $idPaper) {
+    public function deletePaperFromDestination($idDestination, $idPaper) {
 
         DB::table('need')
             ->where('idDestination', '=', $idDestination)
             ->where('idPaper', '=', $idPaper)
-            ->where('owner', '=', $request->input('owner'))
             ->delete();
 
         return response()->json('Removed successfully.');
@@ -121,7 +116,6 @@ class PaperController extends Controller
             'idPaper' => $idPaper->id,
             'idDestination' => $idDestination,
             'valid' => $request->input('valid'),
-            'owner' => ucfirst(strtolower($request->input('owner'))),
             'description' => $request->input('description')
         ]);
 
