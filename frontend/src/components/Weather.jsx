@@ -30,69 +30,52 @@ export default class Panel extends React.Component {
     }
 
   printList(){
-    //console.log('thiss state forecast :')
-    //console.log(this.state.forecast)
-    const arrays = [];
-    const size = 8;
+    const arraysprint = [];
 
     if(this.state.forecast == null){
-      //console.log('error forecast printlist func')
       return "Error, forecast unavailable"
     }
 
-    //console.log('forecast list into printlist func')
-
-
-    while(this.state.forecast.list.length > 0){
-      arrays.push(this.state.forecast.list.splice(0, size));
+    for(var i=0; i < this.state.forecast.list.length; i=i+8){
+      arraysprint.push(this.state.forecast.list[i]);
     }
 
-    //console.log('printlist arrays :')
-    //console.log(arrays);
+    console.log(arraysprint)
 
-    return arrays.map(item =>{
-      const date = new Date(item[0].dt*1000);
-      <p>
+    return arraysprint.map(item =>{
+      const date = new Date(item.dt*1000);
+      return <li>
         {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}&emsp;
-        <span className='icon'>{item[0].weather[0].main}</span>&emsp;
-        <span className='temp'>{item[0].main.temp}°C</span>&emsp;
-        {item[0].wind.speed} m/s
-      </p>
+        <span className='icon'>{item.weather[0].main}</span>&emsp;
+        <span className='temp'>{item.main.temp}°C</span>&emsp;
+        {item.wind.speed} m/s
+      </li>
     })
   }
 
   diagramData(){
-
-    //console.log('thiss state forecast into diagram func:')
-    //console.log(this.state.forecast)    
-
     const labelData = [];
     const tempData = [];
     const humidityData = [];
     const windData = [];
 
     const arrays = [];
-    const size = 4;
 
     if(this.state.forecast == null){
-      //console.log('error forecast diagram data func')
       return {}
     }
 
-    while(this.state.forecast.list.length > 0){
-      arrays.push(this.state.forecast.list.splice(0, size));
+    for(var i=0; i < this.state.forecast.list.length; i=i+4){
+      arrays.push(this.state.forecast.list[i]);
     }
 
-    //console.log('arrays in diagram data :')
-    //console.log(arrays);
-
     arrays.map(item => {
-      const date = new Date(item[0].dt*1000);
+      const date = new Date(item.dt*1000);
 
       labelData.push(date.getDate() + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + 'h');
-      tempData.push(item[0].main.temp);
-      humidityData.push(item[0].main.humidity);
-      windData.push(item[0].wind.speed);
+      tempData.push(item.main.temp);
+      humidityData.push(item.main.humidity);
+      windData.push(item.wind.speed);
     })
 
     return {
@@ -167,5 +150,7 @@ export default class Panel extends React.Component {
 }
 
 /*
+
+
 
 */
