@@ -80,7 +80,6 @@ export default class Paper extends React.Component {
 	}
     
     deleteFromList(idgive){
-
         axios.delete('/destination/'+ this.props.idPage +'/paper/'+ idgive +'/delete')
         .then(response => {
             console.log(response)
@@ -103,7 +102,6 @@ export default class Paper extends React.Component {
                axios.put('/destination/'+ this.props.idPage +'/paper/'+ id +'/update', {valid: 1 - pres, owner: 'M Nobody', newOwner: 'M Nobody', description: "Null"})
                 .then(response => {
                     console.log(response)
-                   console.log('HERE')
                     this.updatePaper();
                 })
                 .catch(error => {console.log(error)})
@@ -127,7 +125,7 @@ export default class Paper extends React.Component {
   render() {
     return (
      <div>
-     	<form className="list" onSubmit={(e) => this.addObject(e)} >
+     	<form className="list" onSubmit={(e) => this.addPaper(e)} >
 	        <input type="text" name="name" value={this.state.currentName} onChange={(e) => this.setCurrentName(e)}/>
 
 	        <input type="submit" value="+" disabled={this.state.currentName === "" ? 'disabled' : null} />

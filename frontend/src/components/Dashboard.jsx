@@ -31,7 +31,7 @@ export default class Dashboard extends React.Component {
             </article>
 
             <Panel title={'Weather'}>
-              <Weather />
+              <Weather idPage={this.props.idPage}/>
             </Panel>
 
           </div>

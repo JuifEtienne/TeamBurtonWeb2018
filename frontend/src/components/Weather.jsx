@@ -19,15 +19,56 @@ export default class Panel extends React.Component {
   }
 
   componentDidMount(){
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.state.town+'&units=metric&APPID='+keys.openWeather)
-        .then(response => {
-          //console.log(response.data);
-          this.setState({ forecast: response.data })
+      axios.get('/destination/' + this.props.idPage)
+            .then(response => {
+             axios.get('/city/' + response.data.idCity)
+                .then(response2 => {
+                this.setState({town: response2.data.name})
+                axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+response2.data.name+'&units=metric&APPID='+keys.openWeather)
+                .then(response3 => {
+                  //console.log(response.data);
+                  this.setState({ forecast: response3.data })
+                })
+                .catch(function (error) {
+                  console.log(error)
+                })
+            })
+                .catch(function (error) {
+                console.log(error)
+            })
+            
+            console.log(response.data)
         })
-        .catch(function (error) {
-          console.log(error)
+            .catch(function (error) {
+            console.log(error)
         })
     }
+    
+  componentWillReceiveProps(nextProps){
+       axios.get('/destination/' + nextProps.idPage)
+            .then(response => {
+             axios.get('/city/' + response.data.idCity)
+                .then(response2 => {
+                this.setState({town: response2.data.name})
+                axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+response2.data.name+'&units=metric&APPID='+keys.openWeather)
+                .then(response3 => {
+                  //console.log(response.data);
+                  this.setState({ forecast: response3.data })
+                })
+                .catch(function (error) {
+                  console.log(error)
+                })
+            })
+                .catch(function (error) {
+                console.log(error)
+            })
+            
+            console.log(response.data)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
+   }
 
   printList(){
     const arraysprint = [];
