@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../assets/sass/panel.scss'
+import keys from '../settings/settings.json'
 
 export default class Destination extends React.Component {
 
@@ -23,7 +24,7 @@ export default class Destination extends React.Component {
   }
 
   getMapSearch(){
-    return "https://www.google.com/maps/embed/v1/place?key=AIzaSyBeqJKvn6UBcOg9M558PX-AadD2IoRX6ts&q="+this.state.city
+    return "https://www.google.com/maps/embed/v1/place?key="+keys.googleMap+"&q="+this.state.city
   }
 
   render() {
@@ -62,5 +63,5 @@ export default class Destination extends React.Component {
 }
 
 /*
-AIzaSyBeqJKvn6UBcOg9M558PX-AadD2IoRX6ts
+
 */

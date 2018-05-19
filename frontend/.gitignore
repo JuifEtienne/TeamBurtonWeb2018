@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# API Key
+# uncomment the line below when building is finished to make the app more secure
+# settings/settings.json

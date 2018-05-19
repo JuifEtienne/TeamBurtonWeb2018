@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../assets/sass/panel.scss'
 import axios from 'axios'
 import {Line} from 'react-chartjs-2'
+import keys from '../settings/settings.json'
 
 export default class Panel extends React.Component {
 
@@ -18,7 +19,7 @@ export default class Panel extends React.Component {
   }
 
   componentDidMount(){
-        axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.state.town+'&units=metric&APPID=cf2d03b36ba7b9f74adddecc430b584a')
+        axios.get('http://api.openweathermap.org/data/2.5/forecast?q='+this.state.town+'&units=metric&APPID='+keys.openWeather)
         .then(response => {
           //console.log(response.data);
           this.setState({ forecast: response.data })
