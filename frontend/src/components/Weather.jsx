@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/sass/panel.scss'
+import styles from '../assets/sass/weather.scss'
 import axios from 'axios'
 import {Line} from 'react-chartjs-2'
 import keys from '../settings/settings.json'
@@ -32,8 +32,8 @@ export default class Panel extends React.Component {
   printList(){
     //console.log('thiss state forecast :')
     //console.log(this.state.forecast)
-    var arrays = [];
-    var size = 8;
+    const arrays = [];
+    const size = 8;
 
     if(this.state.forecast == null){
       //console.log('error forecast printlist func')
@@ -51,7 +51,7 @@ export default class Panel extends React.Component {
     //console.log(arrays);
 
     return arrays.map(item =>{
-      var date = new Date(item[0].dt*1000);
+      const date = new Date(item[0].dt*1000);
       <p>
         {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}&emsp;
         <span className='icon'>{item[0].weather[0].main}</span>&emsp;
@@ -66,13 +66,13 @@ export default class Panel extends React.Component {
     //console.log('thiss state forecast into diagram func:')
     //console.log(this.state.forecast)    
 
-    var labelData = [];
-    var tempData = [];
-    var humidityData = [];
-    var windData = [];
+    const labelData = [];
+    const tempData = [];
+    const humidityData = [];
+    const windData = [];
 
-    var arrays = [];
-    var size = 4;
+    const arrays = [];
+    const size = 4;
 
     if(this.state.forecast == null){
       //console.log('error forecast diagram data func')
@@ -87,7 +87,7 @@ export default class Panel extends React.Component {
     //console.log(arrays);
 
     arrays.map(item => {
-      var date = new Date(item[0].dt*1000);
+      const date = new Date(item[0].dt*1000);
 
       labelData.push(date.getDate() + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + 'h');
       tempData.push(item[0].main.temp);

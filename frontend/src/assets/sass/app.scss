@@ -15,6 +15,7 @@ body {
     }
     
     #menu {
+        z-index: 900;
         width: 16%;
         position: fixed;
         top: 0;
@@ -22,6 +23,7 @@ body {
         background: linear-gradient($salmon, $purple);
         color: #fff;
         text-align: center;
+        box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, .05);
     }
     
     #dashboard {

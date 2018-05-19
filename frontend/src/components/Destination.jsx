@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/sass/panel.scss'
+import styles from '../assets/sass/destination.scss'
 import keys from '../settings/settings.json'
 
 export default class Destination extends React.Component {
@@ -32,11 +32,11 @@ export default class Destination extends React.Component {
     return (
     <div className='dest'>
       <iframe
-        width="600"
-        height="450"
+        height="500"
         frameborder="0"
         src={this.getMapSearch()} allowfullscreen>
       </iframe>
+        <div className='container'>    
       <form className='info'>
         <select name='country'>
           <option value='France'>France</option>
@@ -49,14 +49,17 @@ export default class Destination extends React.Component {
           <option value='Berlin'>Berlin</option>
           <option value='London'>London</option>
         </select>
-
-        <input type="date" name="beginning" value={this.state.beginningDate} />
-        <input type="date" name="ending" value={this.state.endingDate}  min={this.state.beginningDate}/>
+        
+        <div className='dates'>
+            <input type="date" name="beginning" value={this.state.beginningDate} />
+            <input type="date" name="ending" value={this.state.endingDate}  min={this.state.beginningDate}/>
+        </div>
 
         <p>Local time: <span>{this.state.localTime}</span></p>
-        <p>{this.calcTimeDiff()}</p>
+        <p id='interval'>{this.calcTimeDiff()}h</p>
         <input type='submit' value='Update changes' />
       </form>
+            </div>
     </div>
     );
   }
