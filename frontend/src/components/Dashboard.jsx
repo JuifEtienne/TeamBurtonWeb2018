@@ -9,11 +9,24 @@ import Weather from './Weather.jsx'
 import Destination from './Destination.jsx'
 
 export default class Dashboard extends React.Component {
+  constructor(props){
+        super(props)
+
+        this.state = {
+            pageWillChange: 0,
+        };
+
+        this.change = this.change.bind(this)
+    }
+
+    change(){
+        this.setState({pageWillChange: this.state.pageWillChange++});
+    }
     
   render() {
     return (
         <div>
-        <Destination idPage={this.props.idPage}/>
+        <Destination idPage={this.props.idPage} willChange={this.change}/>
         <div className='panel-container'>
          <div className='container'>
 
@@ -31,7 +44,7 @@ export default class Dashboard extends React.Component {
             </article>
 
             <Panel title={'Weather'}>
-              <Weather idPage={this.props.idPage}/>
+              <Weather idPage={this.props.idPage} willChange={this.state.pageWillChange}/>
             </Panel>
 
           </div>

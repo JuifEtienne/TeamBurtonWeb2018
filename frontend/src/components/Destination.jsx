@@ -81,6 +81,18 @@ export default class Destination extends React.Component {
         })
     }
     
+    updateCitiesAndFirstSelect(id){
+        axios.get('/country/'+ id +'/cities')
+            .then(response => {
+            this.setState({ cities: response.data, idCitySelect: response.data[0].id, city: response.data[0].name})
+            console.log("Update")
+            console.log(response.data)
+        })
+            .catch(function (error) {
+            console.log(error)
+        })
+    }
+    
     changeDestinationCity(event){
         event.preventDefault();
         
@@ -91,8 +103,7 @@ export default class Destination extends React.Component {
             console.log(response.data)
             
             this.changeTimeAndCity(response)
-            
-            
+            this.props.willChange();
         })
             .catch(function (error) {
             console.log(error)
@@ -133,7 +144,7 @@ export default class Destination extends React.Component {
     
   changeIdCountry(event){
     this.setState({idCountrySelect: event.target.value})
-    this.updateCities(event.target.value)
+    this.updateCitiesAndFirstSelect(event.target.value)
   }
     
   changeIdCity(event){
