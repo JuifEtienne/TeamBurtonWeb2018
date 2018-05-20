@@ -33,7 +33,7 @@ export default class Destination extends React.Component {
         axios.get('/country/all')
             .then(response => {
             this.setState({ countries: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {
             console.log(error)
@@ -42,12 +42,11 @@ export default class Destination extends React.Component {
         axios.get('/destination/' + this.props.idPage)
             .then(response => {
             this.setState({beginningDate: response.data.arrivalDate, endingDate: response.data.departureDate, idCitySelect: response.data.idCity})
-            console.log(response.data)
+            // console.log(response.data)
             
             this.changeTimeAndCity(response)
-            
-
-            console.log(response.data)
+        
+            // console.log(response.data)
         })
             .catch(error => {
             console.log(error)
@@ -58,7 +57,7 @@ export default class Destination extends React.Component {
        axios.get('/destination/' + nextProps.idPage)
             .then(response => {
             this.setState({beginningDate: response.data.arrivalDate, endingDate: response.data.departureDate, idCitySelect: response.data.idCity})
-            console.log(response.data)
+            // console.log(response.data)
             
             this.changeTimeAndCity(response)
             
@@ -73,8 +72,8 @@ export default class Destination extends React.Component {
         axios.get('/country/'+ id +'/cities')
             .then(response => {
             this.setState({ cities: response.data })
-            console.log("Update")
-            console.log(response.data)
+            // console.log("Update")
+            // console.log(response.data)
         })
             .catch(error => {
             console.log(error)
@@ -85,10 +84,10 @@ export default class Destination extends React.Component {
         axios.get('/country/'+ id +'/cities')
             .then(response => {
             this.setState({ cities: response.data, idCitySelect: response.data[0].id, city: response.data[0].name})
-            console.log("Update")
-            console.log(response.data)
+            // console.log("Update")
+            // console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
     }
@@ -100,7 +99,7 @@ export default class Destination extends React.Component {
         
         axios.put('/destination/'+ this.props.idPage +'/update', newDest)
             .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             
             this.changeTimeAndCity(response)
             this.props.willChange();
@@ -115,12 +114,12 @@ export default class Destination extends React.Component {
                 .then(response2 => {
                 this.setState({ idCountrySelect: response2.data.idCountry, idTimeZone:  response2.data.idTimeZone, city: response2.data.name})
                 this.updateCities(response2.data.idCountry)
-                console.log(response2.data)
+                // console.log(response2.data)
                 
                 axios.get('/timezone/' + response2.data.idTimeZone + '/hour')
                     .then(response => {
                     this.setState({ localTime: response.data.localHour })
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
                     .catch(error => {
                     console.log(error)
@@ -159,10 +158,9 @@ export default class Destination extends React.Component {
         
     axios.put('/destination/'+ this.props.idPage +'/update', newDest)
         .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
 
         this.changeTimeAndCity(response)
-
     })
         .catch(error => {
         console.log(error)
@@ -176,11 +174,9 @@ export default class Destination extends React.Component {
         
     axios.put('/destination/'+ this.props.idPage +'/update', newDest)
         .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
 
         this.changeTimeAndCity(response)
-
-
     })
         .catch(error => {
         console.log(error)

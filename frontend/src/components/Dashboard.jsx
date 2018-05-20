@@ -15,13 +15,13 @@ export default class Dashboard extends React.Component {
 
         this.state = {
             pageWillChange: 0,
-        };
+        }
 
         this.change = this.change.bind(this)
     }
 
     change(){
-        this.setState({pageWillChange: this.state.pageWillChange++});
+        this.setState({pageWillChange: this.state.pageWillChange++})
     }
     
     deleteTrip() {
@@ -36,8 +36,7 @@ export default class Dashboard extends React.Component {
     
   render() {
     return (
-        <div className='panel-container'>
-         <div className='container'>
+        <div>
             <Destination idPage={this.props.idPage} willChange={this.change}/>
             <div className='panel-container'>
                 <div className='wrapper'>
@@ -65,7 +64,6 @@ export default class Dashboard extends React.Component {
                 </div>
             </div>
         </div>
-    </div>
-    );
+    )
   }
 }

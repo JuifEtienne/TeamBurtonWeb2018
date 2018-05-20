@@ -16,7 +16,7 @@ export default class Paper extends React.Component {
         axios.get('/destination/'+ this.props.idPage +'/papers')
             .then(response => {
             this.setState({ paper: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
     }
@@ -25,7 +25,7 @@ export default class Paper extends React.Component {
         axios.get('/destination/'+ this.props.idPage +'/papers')
             .then(response => {
             this.setState({ paper: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
     }
@@ -34,7 +34,7 @@ export default class Paper extends React.Component {
        axios.get('/destination/'+ nextProps.idPage +'/papers')
             .then(response => {
             this.setState({ paper: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
    }
@@ -46,12 +46,12 @@ export default class Paper extends React.Component {
         
         axios.post('/paper/add', newObj)
             .then(response => {
-            console.log(response)
+            // console.log(response)
             this.findObjectId(event, this.state.currentName)
         })
             .catch(error => {console.log(error)})
         
-        this.state.maxID++;
+        this.state.maxID++
     }
     
     findObjectId(event, nameCheck){
@@ -71,7 +71,7 @@ export default class Paper extends React.Component {
         axios.post('/destination/'+ this.props.idPage +'/paper/'+ id +'/add', tempPap)
             .then(response => {
             console.log(response)
-            this.state.currentName = "";
+            this.state.currentName = ""
             this.updatePaper();
         })
             .catch(error => {console.log(error)})
@@ -83,7 +83,7 @@ export default class Paper extends React.Component {
         axios.delete('/destination/'+ this.props.idPage +'/paper/'+ idgive +'/delete')
         .then(response => {
             console.log(response)
-            this.updatePaper();
+            this.updatePaper()
         })
         .catch(error => {console.log(error)})
         
@@ -101,7 +101,7 @@ export default class Paper extends React.Component {
                console.log(1 - pres)
                axios.put('/destination/'+ this.props.idPage +'/paper/'+ id +'/update', {valid: 1 - pres, owner: 'M Nobody', newOwner: 'M Nobody', description: "Null"})
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     this.updatePaper()
                 })
                 .catch(error => {console.log(error)})

@@ -11,14 +11,14 @@ export default class Luggage extends React.Component {
         	currentName: "",
             maxID: 0,
             luggage: []
-        };
+        }
     }
     
     componentDidMount(){
         axios.get('/luggage/'+ this.props.idPage +'/content')
             .then(response => {
             this.setState({ luggage: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
     }
@@ -27,7 +27,7 @@ export default class Luggage extends React.Component {
         axios.get('/luggage/'+ this.props.idPage +'/content')
             .then(response => {
             this.setState({ luggage: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
     }
@@ -36,19 +36,19 @@ export default class Luggage extends React.Component {
        axios.get('/luggage/'+ nextProps.idPage +'/content')
             .then(response => {
             this.setState({ luggage: response.data })
-            console.log(response.data)
+            // console.log(response.data)
         })
             .catch(error => {console.log(error)})
    }
     
     addObject(event){
-        event.preventDefault();
+        event.preventDefault()
         
         const newObj = {name: this.state.currentName}
         
         axios.post('/object/add', newObj)
             .then(response => {
-            console.log(response)
+            // console.log(response)
             this.findObjectId(event, this.state.currentName)
         })
             .catch(error => {console.log(error)})
@@ -59,7 +59,7 @@ export default class Luggage extends React.Component {
     findObjectId(event, nameCheck){
         axios.get('/object/all')
             .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             this.addToList(event, response.data.find(i => i.name === nameCheck).id)          
         })
             .catch(error => {console.log(error)})
@@ -72,7 +72,7 @@ export default class Luggage extends React.Component {
 
         axios.post('/luggage/'+ this.props.idPage +'/object/'+ id +'/add', tempLug)
             .then(response => {
-            console.log(response)
+            // console.log(response)
             this.state.currentName = ""
             this.state.currentNum = 0
             this.updateLuggage()
@@ -113,7 +113,7 @@ export default class Luggage extends React.Component {
            const pres = response.data.find(i=> i.id === id).present;
            axios.put('/luggage/'+ this.props.idPage +'/object/'+ id +'/update', {id: id, quantity: quantity, present: 1-pres})
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     this.updateLuggage()
                 })
                 .catch(error => {console.log(error)})

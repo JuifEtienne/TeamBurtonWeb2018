@@ -98,19 +98,27 @@ export default class Panel extends React.Component {
 
     // console.log(arraysprint)
     let j = 0;
-    return arraysprint.map(item =>{
-        
-      const date = new Date(item.dt*1000);
-        return <tr key={j++}>
-            <td>
-            {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}
-            </td>
-            <td><img src={this.displayWeather(item.weather[0].main)}></img></td>
-            <td>{item.main.temp}°C</td>
-            <td>{item.wind.speed} m/s
-            </td>
-        </tr>
-    })
+      return (
+        <table>
+            <tbody>
+                {
+                   arraysprint.map(item => { 
+                    const date = new Date(item.dt*1000);
+                    return <tr key={j++}>
+                        <td>
+                            {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}
+                        </td>
+                        <td>
+                            <img src={this.displayWeather(item.weather[0].main)}/>
+                        </td>
+                        <td>{item.main.temp}°C</td>
+                        <td>{item.wind.speed} m/s</td>
+                    </tr>
+                    })
+                }
+            </tbody>  
+        </table>
+      )
   }
 
   diagramData(){
@@ -207,13 +215,9 @@ export default class Panel extends React.Component {
         </div> 
       <div className='xl-6'>
         <p className='text-center'>Forecast</p>
-        <table>
-            <tbody>
-                {this.printList()}
-            </tbody>
-        </table>
+        {this.printList()}
       </div>
     </div>
-    );
+    )
   }
 }
