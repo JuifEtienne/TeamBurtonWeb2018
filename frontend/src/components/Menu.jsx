@@ -35,10 +35,14 @@ export default class Menu extends React.Component {
     
   render() {
     return (
-     <div>  
-        <img src={logo} alt='logo'/>            
-        <h2>Journeo</h2>
+     <div>
+        <div className='logo-header'>
+            <img src={logo} alt='logo'/>   
+            <h2>Journeo</h2>
+        </div>
+        <div className='nav-wrapper'>
             <nav className='nav' role='navigation'>
+                <div className='nav-centre'>
                 <ul className='menu'>
                     <li className={(this.props.idPage === 0 ? 'active' : undefined)}>
                         <a onClick={() => this.props.onMenuItemClick(0)}>
@@ -55,7 +59,9 @@ export default class Menu extends React.Component {
                         )
                     }
                 </ul>
+                </div>
             </nav>
+        </div>
         <p>© 2018 - Team Burton</p>
       </div>
     )
