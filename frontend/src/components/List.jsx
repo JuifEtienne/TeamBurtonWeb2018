@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import axios from 'axios'
 import styles from '../assets/sass/list.scss'
 
@@ -12,7 +12,7 @@ export default class List extends React.Component {
         	currentName: "",
             maxID: 0,
             list: []
-        };
+        }
     }
     
     componentDidMount(){
@@ -34,7 +34,7 @@ export default class List extends React.Component {
     }
 
     addToList(event){
-    	event.preventDefault();
+    	event.preventDefault()
         
         const tempObj = {id: this.state.maxID +1, name: this.state.currentName, number: this.state.currentNum, checked: false}
         
@@ -55,9 +55,9 @@ export default class List extends React.Component {
         
 		//this.setState({list: [...this.state.list, tempObj] });
 
-		this.state.currentNum = 0;
-		this.state.currentName = "";
-        this.state.maxID++;
+		this.state.currentNum = 0
+		this.state.currentName = ""
+        this.state.maxID++
 	}
     
     deleteFromList(idgive){
@@ -88,24 +88,24 @@ export default class List extends React.Component {
     }
 
 	decreaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum-1}));
+		this.setState(prevState => ({currentNum: prevState.currentNum-1}))
 
 	}
 
 	increaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum+1}));
+		this.setState(prevState => ({currentNum: prevState.currentNum+1}))
 	}
 
 	setCurrentName(event){
-		this.setState({currentName: event.target.value});
+		this.setState({currentName: event.target.value})
 	}
     
     onChekChange(id){
-        const newElmt = this.state.list.find(i => i.id === id);
-        const tempObject = {id: newElmt.id, name: newElmt.name, number: newElmt.number, checked: !newElmt.checked};
-        const arr1 = this.state.list.filter(i => i.id < id);
-        const arr2 = this.state.list.filter(i => i.id > id);
-        this.setState({list: [...arr1, tempObject, ...arr2] });
+        const newElmt = this.state.list.find(i => i.id === id)
+        const tempObject = {id: newElmt.id, name: newElmt.name, number: newElmt.number, checked: !newElmt.checked}
+        const arr1 = this.state.list.filter(i => i.id < id)
+        const arr2 = this.state.list.filter(i => i.id > id)
+        this.setState({list: [...arr1, tempObject, ...arr2] })
         
         //axios.put('/luggage/1/update')
         axios.put('/paper/'+{id}+'/update')
@@ -117,7 +117,7 @@ export default class List extends React.Component {
     
     printList(){
         return this.state.list.map(item =>{
-            return <li className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
+            return <li key={item.key} className={'item ' + (item.checked ? 'unchecked' : 'checked')}>
                             <div>{item.name}</div>
                             <div>
                                 <button onClick={() => this.onChekChange(item.id)} ></button>
@@ -132,9 +132,6 @@ export default class List extends React.Component {
      <div>
      	<form className="list" onSubmit={(e) => this.addToList(e)} >
 	        <input type="text" name="name" value={this.state.currentName} onChange={(e) => this.setCurrentName(e)}/>
-
-	        
-
 	        <input type="submit" value="+" disabled={this.state.currentNum === 0 || this.state.currentName === "" ? 'disabled' : null} />
         </form>
 
@@ -142,13 +139,6 @@ export default class List extends React.Component {
             {this.printList()}
         </ul>
       </div>
-    );
+    )
   }
 }
-
-/* + et -
-
-<input type="button" value="-" name="less" onClick={() => this.decreaseNum()}  disabled={this.state.currentNum == 0 ? 'disabled' : null}/>
-	        <span>{this.state.currentNum}</span>
-	        <input type="button" value="+" name="more" onClick={() => this.increaseNum()} />
-*/

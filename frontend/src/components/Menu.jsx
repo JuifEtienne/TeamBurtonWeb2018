@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 import styles from '../assets/sass/menu.scss'
 import axios from 'axios'
 import fonts from '../assets/themify-icons.css'
+import logo from '../assets/img/logo.svg'
 
 export default class Menu extends React.Component {
     constructor(props){
@@ -16,7 +17,7 @@ export default class Menu extends React.Component {
         .then(response => {
             this.setState({ voyages: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
         console.log(error)
         })
     }
@@ -26,7 +27,7 @@ export default class Menu extends React.Component {
         .then(response => {
             this.setState({ voyages: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
         console.log(error)
         })
    }
@@ -35,11 +36,11 @@ export default class Menu extends React.Component {
   render() {
     return (
      <div>  
-        <img src={require('../assets/img/logo.svg')} alt='logo'/>            
+        <img src={logo} alt='logo'/>            
         <h2>Journeo</h2>
             <nav className='nav' role='navigation'>
                 <ul className='menu'>
-                    <li>
+                    <li className={(this.props.idPage === 0 ? 'active' : undefined)}>
                         <a onClick={() => this.props.onMenuItemClick(0)}>
                             <div className='ti-home'></div>
                             <div>Home</div>
@@ -47,7 +48,7 @@ export default class Menu extends React.Component {
                     </li>
                     {
                         this.state.voyages.map((item) =>
-                            <li><a onClick={() => this.props.onMenuItemClick(item.id)}>
+                            <li key={item.id} className={(this.props.idPage === item.id ? 'active' : undefined)}><a onClick={() => this.props.onMenuItemClick(item.id)}>
                                 <div className="ti-map-alt"></div>
                                 <div>{item.name}</div>
                             </a></li>
@@ -57,6 +58,6 @@ export default class Menu extends React.Component {
             </nav>
         <p>© 2018 - Team Burton</p>
       </div>
-    );
+    )
   }
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import styles from '../assets/sass/destination.scss'
 
 import keys from '../settings/settings.json'
 
-import axios from 'axios';
+import axios from 'axios'
 
 
 export default class Destination extends React.Component {
@@ -35,7 +35,7 @@ export default class Destination extends React.Component {
             this.setState({ countries: response.data })
             console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
         
@@ -49,7 +49,7 @@ export default class Destination extends React.Component {
 
             console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
     }
@@ -64,7 +64,7 @@ export default class Destination extends React.Component {
             
             console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
    }
@@ -76,15 +76,15 @@ export default class Destination extends React.Component {
             console.log("Update")
             console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
     }
     
     changeDestinationCity(event){
-        event.preventDefault();
+        event.preventDefault()
         
-        var newDest = {arrivalDate: this.state.beginningDate ,departureDate: this.state.endingDate,idJourney: this.props.idPage,idCity: this.state.idCitySelect}
+        const newDest = {arrivalDate: this.state.beginningDate ,departureDate: this.state.endingDate,idJourney: this.props.idPage,idCity: this.state.idCitySelect}
         
         axios.put('/destination/'+ this.props.idPage +'/update', newDest)
             .then(response => {
@@ -94,7 +94,7 @@ export default class Destination extends React.Component {
             
             
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
     }
@@ -111,18 +111,18 @@ export default class Destination extends React.Component {
                     this.setState({ localTime: response.data.localHour })
                     console.log(response.data)
                 })
-                    .catch(function (error) {
+                    .catch(error => {
                     console.log(error)
                 })
             })
-                .catch(function (error) {
+                .catch(error => {
                 console.log(error)
             })
   }
 
   calcTimeDiff(){
-    var today = new Date();
-    var localHour = today.getHours();
+    const today = new Date()
+    const localHour = today.getHours()
 
     return localHour - parseInt(this.state.localTime.toString().split(':')[0])
   }
@@ -152,9 +152,8 @@ export default class Destination extends React.Component {
 
         this.changeTimeAndCity(response)
 
-
     })
-        .catch(function (error) {
+        .catch(error => {
         console.log(error)
     })
   }
@@ -172,7 +171,7 @@ export default class Destination extends React.Component {
 
 
     })
-        .catch(function (error) {
+        .catch(error => {
         console.log(error)
     })
   }
@@ -183,35 +182,31 @@ export default class Destination extends React.Component {
     return (
     <div className='dest'>
       <iframe
-        height="500"
-        frameborder="0"
-        src={this.getMapSearch()} allowfullscreen>
+        height={500}
+        frameBorder={0}
+        src={this.getMapSearch()} allowFullScreen={true}>
       </iframe>
-        <div className='container'>    
-      <form className='info'>
-        <select name='country' value={this.state.idCountrySelect} onChange={this.changeIdCountry}>
-            {this.state.countries.map(i => <option value={i.id}>{i.name}</option>)}
-        </select>
+        <div className='wrapper'>    
+          <form className='info'>
+            <select name='country' value={this.state.idCountrySelect} onChange={this.changeIdCountry}>
+                {this.state.countries.map(i => <option key={i.id} value={i.id}>{i.name}</option>)}
+            </select>
 
-        <select name='city' value={this.state.idCitySelect + '|' + this.state.city} onChange={this.changeIdCity}>
-            {this.state.cities.map(i => <option value={i.id + '|' + i.name}>{i.name}</option>)}
-        </select>
-        
-        <div className='dates'>
-            <input type="date" name="beginning" value={this.state.beginningDate} max={this.state.endingDate} onChange={this.changeFirstDate}/>
-            <input type="date" name="ending" value={this.state.endingDate}  min={this.state.beginningDate} onChange={this.changeSecondDate}/>
-        </div>
+            <select name='city' value={this.state.idCitySelect + '|' + this.state.city} onChange={this.changeIdCity}>
+                {this.state.cities.map(i => <option key={i.id} value={i.id + '|' + i.name}>{i.name}</option>)}
+            </select>
 
-        <p>Local time: <span>{this.state.localTime}</span></p>
-        <p id='interval'>{this.calcTimeDiff()}h</p>
-        <input type='submit' value='Update changes' onClick={(e) => this.changeDestinationCity(e)} />
-      </form>
+            <div className='dates'>
+                <input type="date" name="beginning" value={this.state.beginningDate} max={this.state.endingDate} onChange={this.changeFirstDate}/>
+                <input type="date" name="ending" value={this.state.endingDate}  min={this.state.beginningDate} onChange={this.changeSecondDate}/>
             </div>
+
+            <p>Local time: <span>{this.state.localTime}</span></p>
+            <p id='interval'>{this.calcTimeDiff()}h</p>
+            <input type='submit' value='Update changes' onClick={(e) => this.changeDestinationCity(e)} />
+          </form>
+        </div>
     </div>
-    );
+    )
   }
 }
-
-/*
-
-*/

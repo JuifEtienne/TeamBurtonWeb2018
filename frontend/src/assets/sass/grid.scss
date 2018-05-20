@@ -1,31 +1,33 @@
 @import 'shared';
 
-.container {
+.wrapper {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.grid {
+    $margin: 10px; 
+    width: calc(100% + #{$margin *2});
+    margin: 0 -#{$margin}; 
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     
-    .xl-12 {
-        width: 100%;
+    @for $i from 1 through 12{
+        .xl-#{$i}{
+            flex-basis:100% / 12 * $i;
+            max-width:100% / 12 * $i;
+            padding: 0 #{$margin};
+        }
     }
     
-    .xl-7 {
-        width: 58.33333%;
+    @media screen and (max-width: 992px) {
+       @for $i from 1 through 12{
+            .xl-#{$i}{
+                flex-basis:100%;
+                max-width:100%;
+            }
+        } 
     }
-    
-    .xl-6 {
-        width: 50%;
-    }
-    
-    .xl-5 {
-        width: 41.66666%;
-    }
-    
-    .xl-3 {
-        width: 25%;
-    }
-    
 }

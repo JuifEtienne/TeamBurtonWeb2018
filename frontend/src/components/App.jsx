@@ -1,7 +1,8 @@
-import React from 'react';
-import Menu from './Menu.jsx';
+import React from 'react'
+import Menu from './Menu.jsx'
 import Dashboard from './Dashboard.jsx'
-import styles from '../assets/sass/app.scss';
+import '../assets/sass/main.scss'
+import styles from '../assets/sass/app.scss'
 import Home from './Home.jsx'
 
 export default class App extends React.Component {
@@ -19,11 +20,11 @@ export default class App extends React.Component {
     }
     
     changeCurrent(i){
-        this.setState({currentPage: i});
+        this.setState({currentPage: i})
     }
     
     increaseJourney(){
-        this.setState({numberOfJourney: ++this.state.numberOfJourney});
+        this.setState({numberOfJourney: ++this.state.numberOfJourney})
     }
     
     currentElement(id){
@@ -40,11 +41,11 @@ export default class App extends React.Component {
     return (
      <div>
         <div id='menu'>   
-            <Menu onMenuItemClick={this.changeCurrent} numberOfJourney={this.state.numberOfJourney} />
+            <Menu onMenuItemClick={this.changeCurrent} numberOfJourney={this.state.numberOfJourney} idPage={this.state.currentPage}/>
         </div>
         <div id='dashboard'>
             {this.currentElement(this.state.currentPage)}
         </div>
-      </div>);
+      </div>)
   }
 }

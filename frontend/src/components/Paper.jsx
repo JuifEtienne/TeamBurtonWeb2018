@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import axios from 'axios'
 
 export default class Paper extends React.Component {
@@ -9,7 +9,7 @@ export default class Paper extends React.Component {
         	currentName: "",
             maxID: 0,
             paper: []
-        };
+        }
     }
     
     componentDidMount(){
@@ -91,7 +91,7 @@ export default class Paper extends React.Component {
     }
 
 	setCurrentName(event){
-		this.setState({currentName: event.target.value});
+		this.setState({currentName: event.target.value})
 	}
     
     onChekChange(id){
@@ -102,7 +102,7 @@ export default class Paper extends React.Component {
                axios.put('/destination/'+ this.props.idPage +'/paper/'+ id +'/update', {valid: 1 - pres, owner: 'M Nobody', newOwner: 'M Nobody', description: "Null"})
                 .then(response => {
                     console.log(response)
-                    this.updatePaper();
+                    this.updatePaper()
                 })
                 .catch(error => {console.log(error)})
         })
@@ -111,7 +111,7 @@ export default class Paper extends React.Component {
     
     printList(){
         return this.state.paper.map(item =>{
-            return <li className={'item ' + (item.valid ? 'unchecked' : 'checked')}>
+            return <li key={item.id} className={'item ' + (item.valid ? 'unchecked' : 'checked')}>
                         <div>{item.name}</div>
                         <div>{item.quantity}</div>
                         <div>
@@ -135,6 +135,6 @@ export default class Paper extends React.Component {
             {this.printList()}
         </ul>
       </div>
-    );
+    )
   }
 }

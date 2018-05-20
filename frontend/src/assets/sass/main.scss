@@ -1,0 +1,16 @@
+@import 'shared';
+@import 'grid';
+
+@font-face {
+    font-family: 'DejaVu';
+    src: url('#{$font-path}/DejaVuSansCondensed.ttf');
+}
+
+*, *:after, *:before{
+  box-sizing:border-box;
+}
+
+.text-center {
+    text-align: center;
+}
+

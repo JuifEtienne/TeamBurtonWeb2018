@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styles from '../assets/sass/panel.scss'
 
 export default class Panel extends React.Component {
@@ -19,6 +19,6 @@ export default class Panel extends React.Component {
         {children}
       </div>
     </div>
-    );
+    )
   }
 }
