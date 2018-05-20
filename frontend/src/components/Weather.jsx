@@ -1,8 +1,11 @@
-import React from 'react';
+import React from 'react'
 import styles from '../assets/sass/weather.scss'
 import axios from 'axios'
 import {Line} from 'react-chartjs-2'
 import keys from '../settings/settings.json'
+import sun from '../assets/img/sun.svg'
+import cloud from '../assets/img/cloud.svg'
+import rain from '../assets/img/tint.svg'
 
 export default class Panel extends React.Component {
 
@@ -14,7 +17,7 @@ export default class Panel extends React.Component {
       }
 
       this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
-      'Nov', 'Dec'];
+      'Nov', 'Dec']
 
   }
 
@@ -29,17 +32,17 @@ export default class Panel extends React.Component {
                   //console.log(response.data);
                   this.setState({ forecast: response3.data })
                 })
-                .catch(function (error) {
+                .catch(error => {
                   console.log(error)
                 })
             })
-                .catch(function (error) {
+                .catch(error => {
                 console.log(error)
             })
             
-            console.log(response.data)
+            // console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
     }
@@ -55,20 +58,32 @@ export default class Panel extends React.Component {
                   //console.log(response.data);
                   this.setState({ forecast: response3.data })
                 })
-                .catch(function (error) {
+                .catch(error => {
                   console.log(error)
                 })
             })
-                .catch(function (error) {
+                .catch(error => {
                 console.log(error)
             })
             
-            console.log(response.data)
+            // console.log(response.data)
         })
-            .catch(function (error) {
+            .catch(error => {
             console.log(error)
         })
    }
+    
+    displayWeather(item) {
+        if (item === 'Clouds') {
+            return cloud
+        }
+        else if (item === 'Clear') {
+            return sun
+        }
+        else {
+            return rain
+        }
+    }
 
   printList(){
     const arraysprint = [];
@@ -77,46 +92,50 @@ export default class Panel extends React.Component {
       return "Error, forecast unavailable"
     }
 
-    for(var i=0; i < this.state.forecast.list.length; i=i+8){
-      arraysprint.push(this.state.forecast.list[i]);
+    for(let i=0; i < this.state.forecast.list.length; i=i+8){
+      arraysprint.push(this.state.forecast.list[i])
     }
 
-    console.log(arraysprint)
-
+    // console.log(arraysprint)
+    let j = 0;
     return arraysprint.map(item =>{
+        
       const date = new Date(item.dt*1000);
-      return <li>
-        {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}&emsp;
-        <span className='icon'>{item.weather[0].main}</span>&emsp;
-        <span className='temp'>{item.main.temp}°C</span>&emsp;
-        {item.wind.speed} m/s
-      </li>
+        return <tr key={j++}>
+            <td>
+            {date.getDate()} {this.months[date.getMonth()]} {date.getFullYear()}
+            </td>
+            <td><img src={this.displayWeather(item.weather[0].main)}></img></td>
+            <td>{item.main.temp}°C</td>
+            <td>{item.wind.speed} m/s
+            </td>
+        </tr>
     })
   }
 
   diagramData(){
-    const labelData = [];
-    const tempData = [];
-    const humidityData = [];
-    const windData = [];
+    const labelData = []
+    const tempData = []
+    const humidityData = []
+    const windData = []
 
-    const arrays = [];
+    const arrays = []
 
     if(this.state.forecast == null){
       return {}
     }
 
-    for(var i=0; i < this.state.forecast.list.length; i=i+4){
-      arrays.push(this.state.forecast.list[i]);
+      for(let i=0; i < this.state.forecast.list.length; i=i+4){
+      arrays.push(this.state.forecast.list[i])
     }
 
     arrays.map(item => {
       const date = new Date(item.dt*1000);
 
-      labelData.push(date.getDate() + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + 'h');
-      tempData.push(item.main.temp);
-      humidityData.push(item.main.humidity);
-      windData.push(item.wind.speed);
+      labelData.push(date.getDate() + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + 'h')
+      tempData.push(item.main.temp)
+      humidityData.push(item.main.humidity)
+      windData.push(item.wind.speed)
     })
 
     return {
@@ -147,8 +166,8 @@ export default class Panel extends React.Component {
             pointRadius: 3,
             pointHitRadius: 10,
             data: humidityData
-          },
-          {
+          }
+          /*{
             label: 'Wind speed',
             fill: false,
             lineTension: 0.3,
@@ -160,7 +179,7 @@ export default class Panel extends React.Component {
             pointRadius: 3,
             pointHitRadius: 10,
             data: windData
-          }
+          }*/
         ]
       }
   }
@@ -171,27 +190,30 @@ export default class Panel extends React.Component {
         xAxes: [{
           display: false
         }]
-      }
+      },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true
+        }
     }
   }
 
   render() {
     return (
-     <div className='weather'>
-      <Line data={this.diagramData()} options={this.diagramOptions()} width='500' height='250' />
-      <div>
-        <h3>Forecast</h3>
-        <ul>
-          {this.printList()}
-        </ul>
+     <div className='grid weather'>
+        <div className='xl-6'>
+            <p className='text-center'>{this.state.town}</p>
+            <Line data={this.diagramData()} options={this.diagramOptions()} height={200} />
+        </div> 
+      <div className='xl-6'>
+        <p className='text-center'>Forecast</p>
+        <table>
+            <tbody>
+                {this.printList()}
+            </tbody>
+        </table>
       </div>
     </div>
     );
   }
 }
-
-/*
-
-
-
-*/

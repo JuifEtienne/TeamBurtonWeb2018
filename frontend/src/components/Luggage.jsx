@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import axios from 'axios'
 import styles from '../assets/sass/list.scss'
 
@@ -53,7 +53,7 @@ export default class Luggage extends React.Component {
         })
             .catch(error => {console.log(error)})
         
-        this.state.maxID++;
+        this.state.maxID++
     }
     
     findObjectId(event, nameCheck){
@@ -73,9 +73,9 @@ export default class Luggage extends React.Component {
         axios.post('/luggage/'+ this.props.idPage +'/object/'+ id +'/add', tempLug)
             .then(response => {
             console.log(response)
-            this.state.currentName = "";
-            this.state.currentNum = 0;
-            this.updateLuggage();
+            this.state.currentName = ""
+            this.state.currentNum = 0
+            this.updateLuggage()
         })
             .catch(error => {console.log(error)})
         
@@ -86,7 +86,7 @@ export default class Luggage extends React.Component {
         axios.delete('/luggage/'+ this.props.idPage +'/object/'+ idgive +'/delete')
         .then(response => {
             console.log(response)
-            this.updateLuggage();
+            this.updateLuggage()
         })
         .catch(error => {console.log(error)})
         
@@ -94,16 +94,16 @@ export default class Luggage extends React.Component {
     }
 
 	decreaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum-1}));
+		this.setState(prevState => ({currentNum: prevState.currentNum-1}))
 
 	}
 
 	increaseNum(){
-		this.setState(prevState => ({currentNum: prevState.currentNum+1}));
+		this.setState(prevState => ({currentNum: prevState.currentNum+1}))
 	}
 
 	setCurrentName(event){
-		this.setState({currentName: event.target.value});
+		this.setState({currentName: event.target.value})
 	}
     
     onChekChange(id){
@@ -114,7 +114,7 @@ export default class Luggage extends React.Component {
            axios.put('/luggage/'+ this.props.idPage +'/object/'+ id +'/update', {id: id, quantity: quantity, present: 1-pres})
                 .then(response => {
                     console.log(response)
-                    this.updateLuggage();
+                    this.updateLuggage()
                 })
                 .catch(error => {console.log(error)})
         })
@@ -123,7 +123,7 @@ export default class Luggage extends React.Component {
     
     printList(){
         return this.state.luggage.map(item =>{
-            return <li className={'item ' + (item.present ? 'unchecked' : 'checked')}>
+            return <li key={item.id} className={'item ' + (item.present ? 'unchecked' : 'checked')}>
                         <div>{item.name}</div>
                         <div>{item.quantity}</div>
                         <div>
@@ -151,6 +151,6 @@ export default class Luggage extends React.Component {
             {this.printList()}
         </ul>
       </div>
-    );
+    )
   }
 }

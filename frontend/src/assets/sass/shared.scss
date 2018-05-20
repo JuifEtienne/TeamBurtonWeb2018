@@ -11,7 +11,3 @@ $themeColor-Dark:#341f3c;
 
 $font-path: '../fonts' !default;
 $font-title: 'Helvetica';
-@font-face {
-    font-family: 'DejaVu';
-    src: url('#{$font-path}/DejaVuSansCondensed.ttf');
-}
