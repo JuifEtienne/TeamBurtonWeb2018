@@ -1,0 +1,31 @@
+@import 'shared';
+
+.weather {
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    
+    img {
+        width: 20px;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        
+        tr {
+            font-family: 'DejaVu';
+            border: 1px solid #D2D2D2;
+
+            td {
+                padding: 12px;
+            }
+        }
+        
+        tr:first-child {
+            background-color: #ebebeb;
+        }
+    }
+}

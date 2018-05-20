@@ -1,0 +1,39 @@
+@import 'shared';
+
+.wrapper {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid {
+    $margin: 10px; 
+    width: calc(100% + #{$margin *2});
+    margin: 0 -#{$margin}; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
+    @for $i from 1 through 12{
+        .xl-#{$i}{
+            flex-basis:100% / 12 * $i;
+            max-width:100% / 12 * $i;
+            padding: 0 #{$margin};
+        }
+    }
+    
+    @media screen and (max-width: 992px) {
+       @for $i from 1 through 12{
+            .xl-#{$i}{
+                flex-basis:100%;
+                max-width:100%;
+            }
+        } 
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        width: 90%;
+    }
+}

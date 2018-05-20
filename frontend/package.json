@@ -6,17 +6,22 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development --history-api-fallback",
-    "build" : "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-preset-env": "^1.6.1",
+    "chart.js": "^2.7.2",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.1.0",
+    "node-sass": "^4.8.3",
     "path": "^0.12.7",
     "react": "^16.2.0",
+    "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.7",
+    "standard-settings": "^1.1.15",
     "style-loader": "^0.20.3",
     "webpack": "^4.3.0",
     "webpack-dev-server": "^3.1.1"
