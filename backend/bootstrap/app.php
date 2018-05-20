@@ -2,10 +2,11 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+
 try {
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
 } catch (Dotenv\Exception\InvalidPathException $e) {
-    //
+
 }
 
 /*
@@ -59,13 +60,23 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->routeMiddleware([
+    'journey' => App\Http\Middleware\JourneyMiddleware::class,
+    'destination' => App\Http\Middleware\DestinationMiddleware::class,
+    'city' => App\Http\Middleware\CityMiddleware::class,
+    'luggage' => App\Http\Middleware\LuggageMiddleware::class,
+    'object' => App\Http\Middleware\ObjectMiddleware::class,
+    'paper' => App\Http\Middleware\PaperMiddleware::class,
+    'transport' => App\Http\Middleware\TransportMiddleware::class,
+    'publictransport' => App\Http\Middleware\PublicTransportMiddleware::class,
+    'activity' => App\Http\Middleware\ActivityMiddleware::class,
+    'destinationPaperCreateAndAdd' => App\Http\Middleware\DestinationPaperCreateAndAddMiddleware::class,
+    'word' => App\Http\Middleware\WordMiddleware::class
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->middleware([
+    palanik\lumen\Middleware\LumenCors::class
+]);
 
 /*
 |--------------------------------------------------------------------------
